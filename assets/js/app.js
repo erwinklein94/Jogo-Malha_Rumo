@@ -461,6 +461,10 @@
     const speedInfoEl = $("#speedInfo");
     const cargoInfoEl = $("#cargoInfo");
     const comboInfoEl = $("#comboInfo");
+    const moneyMiniEl = $("#moneyMini");
+    const speedMiniEl = $("#speedMini");
+    const cargoMiniEl = $("#cargoMini");
+    const comboMiniEl = $("#comboMini");
     const statusDotEl = $("#statusDot");
     const statusTextEl = $("#statusText");
     const nextBreakInfoEl = $("#nextBreakInfo");
@@ -1568,9 +1572,16 @@
       const cargo = cargoById(state.currentCargoId);
 
       moneyEl.textContent = formatCurrency(state.money);
+      if (moneyMiniEl) moneyMiniEl.textContent = formatCurrency(state.money);
+
       speedInfoEl.textContent = `${speed.toFixed(2)}x · nível ${state.speedLevel}`;
+      if (speedMiniEl) speedMiniEl.textContent = `${speed.toFixed(2)}x · n${state.speedLevel}`;
+
       cargoInfoEl.textContent = `${formatCurrency(state.cargoValue)} · nível ${state.cargoLevel}`;
+      if (cargoMiniEl) cargoMiniEl.textContent = `${formatCurrency(state.cargoValue)} · n${state.cargoLevel}`;
+
       comboInfoEl.textContent = `${state.combo}x · ${comboMult().toFixed(2)}`;
+      if (comboMiniEl) comboMiniEl.textContent = `${state.combo}x · ${comboMult().toFixed(2)}`;
       const shift = crewShiftInfo();
       repairsInfoEl.textContent = state.crewLevel > 0
         ? `${repairTeams} equipe(s) · ${shift.label} (${shift.left}s)`
