@@ -80,6 +80,7 @@
           <div class="mini-heading">
             <strong>Centro de operações · Investimentos</strong>
             <span>Invista acima da dinâmica do trem</span>
+            <button class="advanced-invest-open" id="advancedInvestBtn" type="button">Mais investimentos</button>
           </div>
           <div class="section-body controls">
             <div class="upgrade">
@@ -208,9 +209,26 @@
     </section>
 
     <div class="help">
-      <strong>Como jogar:</strong> a composição roda de A até B e gera receita ao chegar. Cada vagão extra aumenta o valor recebido por entrega. Quando a via para por manutenção, a empresa paga multa de <strong>2% do valor da entrega atual por segundo</strong>. Equipes próprias trabalham em turnos; fora do turno, o reparo é terceirizado e pago automaticamente. A manutenção preventiva evolui mais vezes e gera rodadas de proteção contra falhas.
+      <strong>Como jogar:</strong> a composição roda de A até B e gera receita ao chegar. Cada vagão extra aumenta o valor recebido por entrega. Quando a via para por manutenção, a empresa paga multa de <strong>2% do valor da entrega atual por segundo</strong>. Equipes próprias trabalham em turnos; fora do turno, o reparo é terceirizado e pago automaticamente. A manutenção preventiva evolui mais vezes e gera rodadas de proteção contra falhas. Use <strong>Mais investimentos</strong> para abrir upgrades avançados de via, carga, risco, velocidade, vagões e previsibilidade.
     </div>
   </main>
+
+
+  <div class="investment-modal" id="investmentModal" hidden aria-hidden="true">
+    <div class="investment-modal__backdrop" data-close-investments></div>
+    <section class="investment-modal__panel" role="dialog" aria-modal="true" aria-labelledby="advancedInvestTitle">
+      <div class="investment-modal__header">
+        <div>
+          <h2 id="advancedInvestTitle">Investimentos avançados</h2>
+          <p>Upgrades estratégicos para reduzir corretiva, multas e riscos, além de aumentar valor, velocidade e capacidade.</p>
+        </div>
+        <button class="investment-modal__close" id="closeInvestmentsBtn" type="button" aria-label="Fechar investimentos">×</button>
+      </div>
+      <div class="investment-summary" id="investmentSummary">Nenhum investimento avançado comprado ainda.</div>
+      <div class="investment-tabs" id="investmentTabs" aria-label="Categorias de investimento"></div>
+      <div class="investment-list" id="investmentList" aria-live="polite"></div>
+    </section>
+  </div>
 
   <div class="toast-wrap" id="toastWrap" aria-live="polite"></div>
   <div id="log" hidden aria-hidden="true"></div>

@@ -258,6 +258,134 @@
       }
     ];
 
+
+    const INVESTMENT_CATEGORIES = [
+      { id: "todos", label: "Todos" },
+      { id: "via", label: "Via" },
+      { id: "carga", label: "Carga" },
+      { id: "risco", label: "Risco financeiro" },
+      { id: "velocidade", label: "Velocidade" },
+      { id: "vagoes", label: "Vagões" },
+      { id: "previsibilidade", label: "Previsibilidade" }
+    ];
+
+    const EVENT_TAGS = {
+      trilho_empenado_calor: ["calor", "trilho", "geometria"],
+      lastro_encharcado: ["agua", "lastro", "clima"],
+      dormentes_danificados: ["dormentes", "trilho"],
+      furto_cabos_sinalizacao: ["sinalizacao", "furto"],
+      queda_barreira: ["talude", "obstrucao"],
+      vegetacao_faixa_dominio: ["vegetacao", "obstrucao"],
+      alagamento_trecho: ["agua", "clima"],
+      falha_chave_amv: ["amv", "sinalizacao"],
+      passagem_nivel_bloqueada: ["obstrucao", "terceiros"],
+      animal_na_via: ["animal", "obstrucao"],
+      obstrucao_veiculo: ["obstrucao", "terceiros"],
+      sinal_vermelho_indevido: ["sinalizacao", "operacao"],
+      inspecao_obrigatoria_surpresa: ["regulatorio", "inspecao"],
+      fiscalizacao_nao_conformidade: ["regulatorio", "multa"],
+      restricao_temporaria_velocidade: ["velocidade", "operacao"],
+      erosao_trecho: ["erosao", "talude", "agua"],
+      ponte_limite_carga: ["ponte", "peso", "vagoes"],
+      desalinhamento_geometrico: ["geometria", "trilho"],
+      contaminacao_leito: ["ambiental", "multa"],
+      pane_detector_roda_quente: ["roda_quente", "vagoes", "seguranca"],
+      interferencia_eletrica: ["eletrica", "sinalizacao"],
+      baixa_aderencia: ["aderencia", "clima", "trilho"],
+      descarrilamento_leve_vagao_vazio: ["descarrilamento", "vagoes", "seguranca"],
+      cruzamento_outra_composicao: ["trafego", "operacao"],
+      licenca_operacional_vencida_trecho: ["licenca", "regulatorio"]
+    };
+
+    const INVESTMENT_UPGRADES = [
+      // Via / manutenção corretiva
+      { id:"manutencao_preditiva_avancada", cat:"via", emoji:"🧠", nome:"Manutenção preditiva avançada", max:8, base:1800, growth:1.45, desc:"Reduz a chance geral de eventos de via.", effect:"Menos corretiva geral", generalChance:0.055 },
+      { id:"ultrassom_trilhos", cat:"via", emoji:"📡", nome:"Ultrassom de trilhos", max:6, base:1600, growth:1.42, desc:"Detecta trincas e defeitos internos no trilho.", effect:"Protege trilho e geometria", tagsChance:{trilho:0.085, geometria:0.055}, tagsCost:{trilho:0.035} },
+      { id:"carro_inspecao_geometrica", cat:"via", emoji:"📐", nome:"Carro de inspeção geométrica", max:6, base:1900, growth:1.44, desc:"Mapeia desalinhamentos antes de virarem falha.", effect:"Menos desalinhamento e restrição", tagsChance:{geometria:0.09, velocidade:0.05}, tagsDuration:{geometria:0.04} },
+      { id:"sensores_vibracao_via", cat:"via", emoji:"📳", nome:"Sensores de vibração na via", max:6, base:1700, growth:1.42, desc:"Antecipam desgaste e anomalias de rolamento.", effect:"Reduz falhas graves", tagsChance:{trilho:0.045, descarrilamento:0.07, seguranca:0.05}, generalChance:0.015 },
+      { id:"monitoramento_termico_trilhos", cat:"via", emoji:"🌡️", nome:"Monitoramento térmico dos trilhos", max:5, base:1400, growth:1.38, desc:"Evita empenamento em dias de calor.", effect:"Combate calor", tagsChance:{calor:0.13}, tagsCost:{calor:0.06} },
+      { id:"drones_inspecao_faixa", cat:"via", emoji:"🛩️", nome:"Drones de inspeção da faixa de domínio", max:6, base:1550, growth:1.40, desc:"Vigiam taludes, vegetação e obstruções.", effect:"Menos barreiras e obstruções", tagsChance:{talude:0.07, vegetacao:0.12, obstrucao:0.045}, tagsDuration:{obstrucao:0.03} },
+      { id:"sistema_alerta_erosao", cat:"via", emoji:"⛰️", nome:"Sistema de alerta de erosão", max:5, base:1650, growth:1.44, desc:"Monitora taludes e pontos de erosão.", effect:"Reduz erosão", tagsChance:{erosao:0.12, talude:0.06}, tagsCost:{erosao:0.06} },
+      { id:"drenagem_reforcada", cat:"via", emoji:"💧", nome:"Drenagem reforçada", max:6, base:1500, growth:1.42, desc:"Reduz eventos de água: alagamento, erosão e lastro encharcado.", effect:"Proteção contra água", tagsChance:{agua:0.105, lastro:0.08}, tagsCost:{agua:0.06}, tagsDuration:{agua:0.04} },
+      { id:"renovacao_dormentes", cat:"via", emoji:"🪵", nome:"Renovação de dormentes", max:6, base:1750, growth:1.43, desc:"Troca gradual de dormentes críticos.", effect:"Menos dormentes danificados", tagsChance:{dormentes:0.13, aderencia:0.035}, tagsCost:{dormentes:0.055} },
+      { id:"reforco_lastro", cat:"via", emoji:"🪨", nome:"Reforço de lastro", max:6, base:1800, growth:1.44, desc:"Aumenta estabilidade da via e reduz baixa aderência.", effect:"Estabiliza a base da via", tagsChance:{lastro:0.10, aderencia:0.055, geometria:0.035}, speedBonus:0.006 },
+      { id:"lubrificacao_automatica_amvs", cat:"via", emoji:"🔀", nome:"Lubrificação automática de AMVs", max:5, base:1450, growth:1.39, desc:"Evita travamento em chaves e AMVs.", effect:"Menos falhas de AMV", tagsChance:{amv:0.13}, tagsCost:{amv:0.06}, tagsDuration:{amv:0.05} },
+      { id:"estoque_estrategico_pecas", cat:"via", emoji:"📦", nome:"Estoque estratégico de peças", max:6, base:1550, growth:1.41, desc:"Peças críticas disponíveis reduzem custo e tempo de reparo.", effect:"Reparo mais barato", repairCost:0.045, repairTime:0.04, generalCost:0.015 },
+      { id:"contrato_premium_terceirizada", cat:"via", emoji:"🤝", nome:"Contrato premium com terceirizada", max:6, base:2100, growth:1.48, desc:"Terceirizada responde mais rápido e cobra menos.", effect:"Terceirizada melhor", paidRepairCost:0.055, paidRepairTime:0.055 },
+      { id:"oficina_movel_via", cat:"via", emoji:"🛠️", nome:"Oficina móvel de via", max:6, base:2200, growth:1.47, desc:"Reduz duração de manutenção corretiva no trecho.", effect:"Menos tempo parado", generalDuration:0.035, repairTime:0.05 },
+      { id:"equipe_prontidao_24h", cat:"via", emoji:"👷", nome:"Equipe de prontidão 24h", max:5, base:2400, growth:1.52, desc:"Diminui impacto de falha fora do turno da equipe própria.", effect:"Cobre fora de turno", offshiftCost:0.07, offshiftTime:0.06 },
+      { id:"centro_controle_preditivo", cat:"via", emoji:"🖥️", nome:"Centro de controle preditivo", max:8, base:2600, growth:1.47, desc:"Centraliza dados da via e reduz risco operacional.", effect:"Reduz risco geral", generalChance:0.035, generalDuration:0.02 },
+
+      // Carga / receita
+      { id:"terminal_graneleiro_modernizado", cat:"carga", emoji:"🌾", nome:"Terminal graneleiro modernizado", max:6, base:1700, growth:1.42, desc:"Melhora valor e produtividade de grãos.", effect:"Grãos pagam mais", cargoBonus:{graos:0.075}, deliveryBonus:0.006 },
+      { id:"patio_conteineres_refrigerados", cat:"carga", emoji:"🧊", nome:"Pátio de contêineres refrigerados", max:6, base:2300, growth:1.48, desc:"Aumenta valor de cargas refrigeradas e contêineres.", effect:"Contêineres pagam mais", cargoBonus:{conteiner:0.10}, unlockCargoBonus:0.012 },
+      { id:"contrato_exportador_premium", cat:"carga", emoji:"🌎", nome:"Contrato com exportador premium", max:7, base:2200, growth:1.46, desc:"Clientes premium pagam melhor por todas as cargas.", effect:"Todas as entregas pagam mais", deliveryBonus:0.035, contractBonus:0.025 },
+      { id:"rastreabilidade_carga", cat:"carga", emoji:"📍", nome:"Sistema de rastreabilidade da carga", max:6, base:1600, growth:1.42, desc:"Aumenta confiança, valor e reduz penalidade por atraso.", effect:"Mais valor, menos penalidade", deliveryBonus:0.025, penaltyReduction:0.05 },
+      { id:"certificacao_operacional_premium", cat:"carga", emoji:"⭐", nome:"Certificação operacional premium", max:7, base:1900, growth:1.44, desc:"Melhora reputação e pagamento em contratos expressos.", effect:"Contratos pagam mais", deliveryBonus:0.018, contractBonus:0.06 },
+      { id:"seguro_carga_avancado", cat:"carga", emoji:"🛡️", nome:"Seguro de carga avançado", max:5, base:1800, growth:1.50, desc:"Reduz perdas financeiras em eventos e atrasos.", effect:"Menos impacto financeiro", generalCost:0.035, penaltyReduction:0.04 },
+      { id:"armazem_alfandegado", cat:"carga", emoji:"🏬", nome:"Armazém alfandegado", max:6, base:2400, growth:1.50, desc:"Aumenta valor de cargas internacionais.", effect:"Bônus em carga premium", cargoBonus:{conteiner:0.075, celulose:0.035}, deliveryBonus:0.01 },
+      { id:"terminal_intermodal", cat:"carga", emoji:"🚢", nome:"Terminal intermodal", max:7, base:2600, growth:1.50, desc:"Integra ferrovia, porto e rodovia para maior valor.", effect:"Contêineres e contratos melhores", cargoBonus:{conteiner:0.12}, contractBonus:0.025 },
+      { id:"balanca_ferroviaria_automatizada", cat:"carga", emoji:"⚖️", nome:"Balança ferroviária automatizada", max:5, base:1450, growth:1.37, desc:"Reduz erro operacional e melhora receita líquida.", effect:"Receita líquida maior", deliveryBonus:0.02, tagsChance:{peso:0.035} },
+      { id:"carregamento_rapido_automatizado", cat:"carga", emoji:"⏱️", nome:"Carregamento rápido automatizado", max:6, base:1850, growth:1.43, desc:"Reduz ciclo operacional e aumenta receita por minuto.", effect:"Mais velocidade de entrega", speedBonus:0.025, deliveryBonus:0.01 },
+      { id:"contrato_carga_perigosa", cat:"carga", emoji:"☢️", nome:"Contrato de carga perigosa", max:5, base:2500, growth:1.55, desc:"Desbloqueia prêmio alto para cargas sensíveis, com gestão de risco.", effect:"Alto valor com mais exigência", deliveryBonus:0.05, generalCost:-0.01, tagsCost:{ambiental:-0.02} },
+      { id:"carga_refrigerada", cat:"carga", emoji:"❄️", nome:"Carga refrigerada", max:5, base:2300, growth:1.52, desc:"Nova categoria comercial de maior valor.", effect:"Aumenta valor médio", deliveryBonus:0.045, cargoBonus:{conteiner:0.05} },
+      { id:"carga_expressa_prioritaria", cat:"carga", emoji:"🚀", nome:"Carga expressa prioritária", max:6, base:2100, growth:1.48, desc:"Clientes pagam mais por entregas rápidas.", effect:"Mais valor e contrato", deliveryBonus:0.035, contractBonus:0.04, penaltyReduction:-0.01 },
+      { id:"carga_industrial_pesada", cat:"carga", emoji:"🏭", nome:"Carga industrial pesada", max:5, base:2600, growth:1.55, desc:"Aumenta receita, mas exige boa via e pontes fortes.", effect:"Mais receita por peso", deliveryBonus:0.05, tagsChance:{peso:-0.015, ponte:-0.01} },
+      { id:"carga_agricola_sazonal", cat:"carga", emoji:"🌽", nome:"Carga agrícola sazonal", max:5, base:1500, growth:1.38, desc:"Aproveita safras para melhorar valor de grãos e açúcar.", effect:"Bônus agrícola", cargoBonus:{graos:0.06, acucar:0.055}, contractBonus:0.015 },
+
+      // Risco financeiro / multas
+      { id:"departamento_regulatorio", cat:"risco", emoji:"🏛️", nome:"Departamento regulatório", max:6, base:1700, growth:1.42, desc:"Reduz multas de fiscalização e inspeções.", effect:"Menos multa regulatória", tagsCost:{regulatorio:0.09, multa:0.055}, tagsChance:{regulatorio:0.035} },
+      { id:"sistema_gestao_documental", cat:"risco", emoji:"🗂️", nome:"Sistema de gestão documental", max:5, base:1350, growth:1.36, desc:"Evita pendências de licença e documentação.", effect:"Menos licença vencida", tagsChance:{licenca:0.14}, tagsCost:{licenca:0.10} },
+      { id:"auditoria_preventiva_seguranca", cat:"risco", emoji:"✅", nome:"Auditoria preventiva de segurança", max:6, base:1650, growth:1.41, desc:"Reduz não conformidade e eventos de segurança.", effect:"Menos fiscalização ruim", tagsChance:{inspecao:0.06, seguranca:0.05, multa:0.05}, tagsCost:{multa:0.04} },
+      { id:"plano_contingencia_operacional", cat:"risco", emoji:"📘", nome:"Plano de contingência operacional", max:6, base:1800, growth:1.43, desc:"Reduz multa por via parada e duração de resposta.", effect:"Menos multa de parada", stopFineReduction:0.055, generalDuration:0.015 },
+      { id:"seguro_interrupcao_operacional", cat:"risco", emoji:"🧯", nome:"Seguro contra interrupção operacional", max:5, base:2200, growth:1.54, desc:"Cobre parte dos custos quando a operação para.", effect:"Cobre eventos negativos", generalCost:0.055, stopFineReduction:0.035 },
+      { id:"compliance_ferroviario", cat:"risco", emoji:"📜", nome:"Compliance ferroviário", max:6, base:1750, growth:1.43, desc:"Reduz penalidades administrativas e regulatórias.", effect:"Menos penalidades", tagsCost:{regulatorio:0.07, licenca:0.05, multa:0.05}, penaltyReduction:0.035 },
+      { id:"treinamento_resposta_emergencial", cat:"risco", emoji:"🚨", nome:"Treinamento de resposta emergencial", max:6, base:1600, growth:1.42, desc:"Reduz custo e tempo de eventos graves.", effect:"Resposta mais barata", tagsCost:{descarrilamento:0.06, ambiental:0.05, talude:0.035}, tagsDuration:{descarrilamento:0.06, talude:0.04}, generalDuration:0.01 },
+      { id:"gestao_ambiental_preventiva", cat:"risco", emoji:"🌱", nome:"Gestão ambiental preventiva", max:5, base:1700, growth:1.43, desc:"Reduz contaminação, erosão e multas ambientais.", effect:"Menos risco ambiental", tagsChance:{ambiental:0.08, erosao:0.04}, tagsCost:{ambiental:0.11, erosao:0.035} },
+      { id:"acordo_orgaos_reguladores", cat:"risco", emoji:"🤲", nome:"Acordo com órgãos reguladores", max:5, base:2100, growth:1.50, desc:"Diminui impacto de inspeções obrigatórias.", effect:"Inspeções menos caras", tagsCost:{inspecao:0.09, regulatorio:0.05}, tagsDuration:{inspecao:0.04} },
+      { id:"renovacao_automatica_licencas", cat:"risco", emoji:"🔁", nome:"Sistema automático de renovação de licenças", max:5, base:1850, growth:1.45, desc:"Evita eventos de licença operacional vencida.", effect:"Licenças em dia", tagsChance:{licenca:0.16}, tagsCost:{licenca:0.06} },
+      { id:"seguro_operacional", cat:"risco", emoji:"🛡️", nome:"Seguro operacional", max:5, base:2000, growth:1.55, desc:"Reduz parte dos custos de eventos negativos.", effect:"Menos custo em evento", generalCost:0.065 },
+
+      // Velocidade / operação
+      { id:"sinalizacao_automatica_moderna", cat:"velocidade", emoji:"🚦", nome:"Sinalização automática moderna", max:6, base:2100, growth:1.45, desc:"Aumenta velocidade e reduz sinal vermelho indevido.", effect:"Sinalização e velocidade", speedBonus:0.025, tagsChance:{sinalizacao:0.075}, tagsCost:{sinalizacao:0.035} },
+      { id:"ctc_controle_trafego", cat:"velocidade", emoji:"🎛️", nome:"CTC — Controle de Tráfego Centralizado", max:6, base:2600, growth:1.50, desc:"Reduz cruzamento com outra composição atrasada.", effect:"Menos via ocupada", speedBonus:0.018, tagsChance:{trafego:0.13, operacao:0.035}, tagsDuration:{trafego:0.05} },
+      { id:"radio_digital", cat:"velocidade", emoji:"📻", nome:"Comunicação via rádio digital", max:5, base:1450, growth:1.38, desc:"Reduz atrasos por falha operacional.", effect:"Operação mais fluida", speedBonus:0.015, tagsChance:{operacao:0.05, sinalizacao:0.025} },
+      { id:"piloto_automatico_ferroviario", cat:"velocidade", emoji:"🤖", nome:"Piloto automático ferroviário", max:6, base:2400, growth:1.50, desc:"Aumenta velocidade média com menor risco.", effect:"Velocidade com controle", speedBonus:0.035, generalChance:0.012 },
+      { id:"melhoria_curvas_criticas", cat:"velocidade", emoji:"〰️", nome:"Melhoria de curvas críticas", max:6, base:1900, growth:1.44, desc:"Aumenta velocidade em trecho sinuoso e reduz geometria ruim.", effect:"Curvas mais rápidas", speedBonus:0.025, tagsChance:{geometria:0.035} },
+      { id:"retificacao_tracado", cat:"velocidade", emoji:"📏", nome:"Retificação de traçado", max:5, base:3000, growth:1.58, desc:"Obra estrutural que aumenta velocidade geral.", effect:"Velocidade geral", speedBonus:0.045, tagsChance:{geometria:0.02} },
+      { id:"amvs_alta_performance", cat:"velocidade", emoji:"🔀", nome:"AMVs de alta performance", max:5, base:2300, growth:1.48, desc:"Aumenta fluidez e reduz falhas de chave.", effect:"AMV mais confiável", speedBonus:0.018, tagsChance:{amv:0.10}, tagsDuration:{amv:0.04} },
+      { id:"patio_cruzamento_ampliado", cat:"velocidade", emoji:"🛤️", nome:"Pátio de cruzamento ampliado", max:5, base:2200, growth:1.47, desc:"Reduz espera por outra composição.", effect:"Menos cruzamento atrasado", tagsChance:{trafego:0.12}, tagsDuration:{trafego:0.06} },
+      { id:"despacho_inteligente", cat:"velocidade", emoji:"🧭", nome:"Sistema de despacho inteligente", max:6, base:2050, growth:1.45, desc:"Reduz intervalos e melhora sequência operacional.", effect:"Mais velocidade e contratos", speedBonus:0.025, contractBonus:0.018, tagsChance:{operacao:0.035} },
+      { id:"prioridade_operacional_contratos", cat:"velocidade", emoji:"🏁", nome:"Prioridade operacional em contratos", max:5, base:1750, growth:1.42, desc:"Melhora velocidade quando há contrato ativo.", effect:"Contratos mais fortes", contractBonus:0.035, speedBonus:0.012, penaltyReduction:0.03 },
+
+      // Vagões / peso
+      { id:"reforco_pontes", cat:"vagoes", emoji:"🌉", nome:"Reforço de pontes", max:6, base:2200, growth:1.50, desc:"Reduz risco de ponte com limite de carga.", effect:"Mais vagões com segurança", tagsChance:{ponte:0.13, peso:0.04}, tagsCost:{ponte:0.09}, safeWagons:1 },
+      { id:"classificacao_via_superior", cat:"vagoes", emoji:"🏅", nome:"Classificação de via superior", max:6, base:2600, growth:1.52, desc:"Permite mais vagões com menor risco de via.", effect:"Via suporta mais carga", tagsChance:{peso:0.09, ponte:0.05, geometria:0.03}, deliveryBonus:0.01, safeWagons:1 },
+      { id:"locomotiva_auxiliar", cat:"vagoes", emoji:"🚂", nome:"Locomotiva auxiliar", max:5, base:2800, growth:1.55, desc:"Permite composições maiores e mais rápidas.", effect:"Trem longo mais viável", speedBonus:0.025, deliveryBonus:0.018, tagsChance:{peso:0.035} },
+      { id:"freio_eletronico_distribuido", cat:"vagoes", emoji:"🛑", nome:"Freio eletrônico distribuído", max:5, base:2300, growth:1.50, desc:"Reduz risco operacional em trem longo.", effect:"Segurança em vagões", tagsChance:{vagoes:0.08, descarrilamento:0.08, seguranca:0.04}, tagsCost:{descarrilamento:0.045} },
+      { id:"engates_reforcados", cat:"vagoes", emoji:"🔗", nome:"Engates reforçados", max:5, base:1700, growth:1.42, desc:"Reduz risco e custo em composições longas.", effect:"Composição mais robusta", tagsChance:{vagoes:0.06, peso:0.035}, perWagonBonus:0.004 },
+      { id:"monitoramento_roda_quente", cat:"vagoes", emoji:"🔥", nome:"Monitoramento de roda quente", max:5, base:1600, growth:1.41, desc:"Reduz pane no detector e risco de parada.", effect:"Menos roda quente", tagsChance:{roda_quente:0.14}, tagsCost:{roda_quente:0.08} },
+      { id:"detector_carga_desalinhada", cat:"vagoes", emoji:"📷", nome:"Detector de carga desalinhada", max:5, base:1750, growth:1.43, desc:"Evita problemas em vagões e peso mal distribuído.", effect:"Carga alinhada", tagsChance:{peso:0.08, vagoes:0.05, descarrilamento:0.035}, deliveryBonus:0.008 },
+      { id:"balanceamento_automatico_carga", cat:"vagoes", emoji:"⚖️", nome:"Balanceamento automático de carga", max:6, base:1900, growth:1.45, desc:"Aumenta valor e reduz risco por peso.", effect:"Peso equilibrado", tagsChance:{peso:0.08, ponte:0.035}, deliveryBonus:0.018 },
+      { id:"patio_formacao_ampliado", cat:"vagoes", emoji:"🚉", nome:"Pátio de formação ampliado", max:6, base:2100, growth:1.48, desc:"Permite formar composições longas com menos gargalo.", effect:"Mais vagões eficientes", speedBonus:0.012, deliveryBonus:0.012, safeWagons:1 },
+      { id:"inspecao_vagoes_camera", cat:"vagoes", emoji:"🎥", nome:"Sistema de inspeção de vagões por câmera", max:5, base:1650, growth:1.41, desc:"Reduz falhas ligadas à composição.", effect:"Menos falha de vagão", tagsChance:{vagoes:0.075, roda_quente:0.035, seguranca:0.025} },
+
+      // Previsibilidade
+      { id:"sala_crise_operacional", cat:"previsibilidade", emoji:"🚒", nome:"Sala de crise operacional", max:5, base:1850, growth:1.44, desc:"Reduz duração de eventos graves.", effect:"Eventos graves duram menos", generalDuration:0.035, tagsDuration:{descarrilamento:0.05, ambiental:0.04, talude:0.035} },
+      { id:"painel_preditivo_falhas", cat:"previsibilidade", emoji:"📊", nome:"Painel preditivo de falhas", max:6, base:1750, growth:1.42, desc:"Mostra sinais antes da falha virar corretiva.", effect:"Menos evento inesperado", generalChance:0.025, tagsChance:{trilho:0.025, sinalizacao:0.02} },
+      { id:"mapa_risco_via", cat:"previsibilidade", emoji:"🗺️", nome:"Mapa de risco da via", max:6, base:1600, growth:1.40, desc:"Identifica trechos críticos e reduz eventos neles.", effect:"Risco mapeado", generalChance:0.02, tagsCost:{talude:0.035, agua:0.025, geometria:0.025} },
+      { id:"historico_inteligente_falhas", cat:"previsibilidade", emoji:"🧾", nome:"Histórico inteligente de falhas", max:5, base:1450, growth:1.38, desc:"Aprende com ocorrências e melhora preventiva.", effect:"Preventiva mais eficaz", generalChance:0.018, generalCost:0.015 },
+      { id:"ia_manutencao_preditiva", cat:"previsibilidade", emoji:"🤖", nome:"IA de manutenção preditiva", max:8, base:2800, growth:1.52, desc:"Reduz chance geral de manutenção corretiva.", effect:"IA contra corretiva", generalChance:0.04, generalDuration:0.02 },
+      { id:"simulador_operacao", cat:"previsibilidade", emoji:"🎮", nome:"Simulador de operação", max:5, base:1700, growth:1.42, desc:"Melhora contratos e reduz atrasos operacionais.", effect:"Contratos mais previsíveis", contractBonus:0.025, penaltyReduction:0.035, tagsChance:{operacao:0.035} },
+      { id:"janelas_manutencao_dinamicas", cat:"previsibilidade", emoji:"🗓️", nome:"Planejamento dinâmico de janelas de manutenção", max:6, base:1800, growth:1.43, desc:"Reduz custo de manutenção própria e corretiva.", effect:"Manutenção planejada", repairCost:0.035, repairTime:0.025, stopFineReduction:0.02 },
+      { id:"sistema_prioridade_carga", cat:"previsibilidade", emoji:"📦", nome:"Sistema de prioridade por carga", max:5, base:1600, growth:1.40, desc:"Aumenta valor em cargas urgentes e reduz perda por atraso.", effect:"Carga certa primeiro", deliveryBonus:0.02, penaltyReduction:0.03 },
+      { id:"previsao_climatica_integrada", cat:"previsibilidade", emoji:"🌦️", nome:"Previsão climática integrada", max:6, base:1500, growth:1.40, desc:"Reduz impacto de chuva, alagamento e calor.", effect:"Menos clima ruim", tagsChance:{clima:0.08, agua:0.045, calor:0.05}, tagsCost:{clima:0.035, agua:0.03} },
+      { id:"gestao_risco_operacional", cat:"previsibilidade", emoji:"📉", nome:"Gestão de risco operacional", max:6, base:1900, growth:1.44, desc:"Reduz impacto financeiro de eventos aleatórios.", effect:"Menor impacto financeiro", generalCost:0.035, penaltyReduction:0.025, stopFineReduction:0.02 },
+
+      // Extras citados nas recomendações
+      { id:"sistema_antifurto_cabos", cat:"risco", emoji:"🔐", nome:"Sistema antifurto de cabos", max:5, base:1550, growth:1.42, desc:"Reduz chance e custo de furto de cabos de sinalização.", effect:"Protege cabos", tagsChance:{furto:0.16}, tagsCost:{furto:0.09} }
+    ];
+
     const ACHIEVEMENTS = {
       first_delivery: { emoji: "🚂", label: "Primeira entrega", desc: "A operação começou a girar!" },
       deliveries_5:   { emoji: "📦", label: "Pegando ritmo", desc: "5 entregas concluídas." },
@@ -306,6 +434,7 @@
       nextBreakAt: 16,
       uptimeMs: 0,
       achievements: {},
+      investments: {},
       soundOn: true,
       lastSavedAt: Date.now()
     };
@@ -388,6 +517,15 @@
     const costLoanEl = $("#costLoan");
     const costTotalEl = $("#costTotal");
 
+    const advancedInvestBtn = $("#advancedInvestBtn");
+    const investmentModalEl = $("#investmentModal");
+    const closeInvestmentsBtn = $("#closeInvestmentsBtn");
+    const investmentListEl = $("#investmentList");
+    const investmentTabsEl = $("#investmentTabs");
+    const investmentSummaryEl = $("#investmentSummary");
+    let activeInvestmentCategory = "todos";
+    let investmentRenderSig = "";
+
     /* ============================ Utilidades ============================ */
     function formatCurrency(value) {
       return Math.round(value).toLocaleString("pt-BR", { style: "currency", currency: "BRL", maximumFractionDigits: 0 });
@@ -402,6 +540,7 @@
           ...structuredClone(defaultState),
           ...saved,
           achievements: { ...(saved.achievements || {}) },
+          investments: { ...(saved.investments || {}) },
           segments: SEGMENTS.map(s => {
             const old = saved.segments?.find(x => x.id === s.id);
             return {
@@ -447,7 +586,9 @@
 
     /* ============================ Economia ============================ */
     function repairCost(segmentId) {
-      return Math.round(160 + state.speedLevel * 28 + state.cargoLevel * 22 + segmentId * 30 + state.deliveries * 6);
+      const source = state.segments?.find(s => s.id === segmentId)?.by || "manual";
+      const base = 160 + state.speedLevel * 28 + state.cargoLevel * 22 + segmentId * 30 + state.deliveries * 6;
+      return Math.round(base * repairCostMult(source));
     }
     function speedUpgradeCost() { return Math.round(520 * Math.pow(1.55, state.speedLevel - 1)); }
     function cargoUpgradeCost() { return Math.round(680 * Math.pow(1.65, state.cargoLevel - 1)); }
@@ -496,7 +637,12 @@
         cost *= Math.max(0.55, 1 - state.preventLevel * 0.055);
       }
 
-      return Math.round(Math.max(0, cost));
+      const effect = investmentEffectForEvent(def);
+      if (def.id === "ponte_limite_carga") {
+        const safeExtra = investmentScalar("safeWagons");
+        cost *= Math.max(0.45, 1 - safeExtra * 0.035);
+      }
+      return Math.round(Math.max(0, cost * effect.cost));
     }
 
     function recurringIncidentCost(def, dt) {
@@ -506,22 +652,24 @@
       cost += wagonCount() * Number(def.recurringPerWagon || 0) * dt;
       cost += Number(def.recurringFixed || 0) * dt;
       cost += state.speedLevel * Number(def.recurringPerSpeedLevel || 0) * dt;
-      return cost;
+      return cost * investmentEffectForEvent(def).cost;
     }
 
     function eligibleViaCostEvents() {
-      return VIA_COST_EVENTS.filter(def => {
-        if (def.minWagons && wagonCount() < def.minWagons) return false;
-        if (def.rare && Math.random() > 0.35) return false;
-        return true;
-      });
+      return VIA_COST_EVENTS
+        .filter(def => {
+          if (def.minWagons && wagonCount() < def.minWagons) return false;
+          if (def.rare && Math.random() > 0.35) return false;
+          return true;
+        })
+        .map(def => ({ ...def, effectiveWeight: Math.max(0.05, Number(def.weight || 1) * investmentEffectForEvent(def).chance) }));
     }
 
     function weightedPick(items) {
-      const total = items.reduce((sum, item) => sum + Number(item.weight || 1), 0);
+      const total = items.reduce((sum, item) => sum + Number(item.effectiveWeight || item.weight || 1), 0);
       let pick = Math.random() * total;
       for (const item of items) {
-        pick -= Number(item.weight || 1);
+        pick -= Number(item.effectiveWeight || item.weight || 1);
         if (pick <= 0) return item;
       }
       return items[items.length - 1];
@@ -546,7 +694,8 @@
       const base = 1 + (state.speedLevel - 1) * 0.22;
       const evMult = activeEvent?.def.speed || 1;
       const incidentDrag = activeEvent?.def.operationalDrag ? Math.max(0.35, 1 - activeEvent.def.operationalDrag) : 1;
-      return Number((base * evMult * incidentDrag).toFixed(2));
+      const investBoost = 1 + investmentScalar("speedBonus");
+      return Number((base * evMult * incidentDrag * investBoost).toFixed(2));
     }
     function comboMult() { return 1 + Math.min(state.combo, 10) * 0.08; }
     function valueMult() { return activeEvent?.def.value || 1; }
@@ -555,7 +704,7 @@
     function deliveryValue() {
       const cargo = cargoById(state.currentCargoId);
       const base = state.cargoValue + state.wagonExtra * WAGON_BONUS;
-      return Math.round(base * cargo.mult * comboMult() * valueMult());
+      return Math.round(base * cargo.mult * comboMult() * valueMult() * (1 + cargoInvestmentBonus(cargo.id)));
     }
 
     function hasBrokenLine() { return state.segments.some(s => s.status === "broken"); }
@@ -582,6 +731,181 @@
     function pickCargo() {
       // sorteio com leve viés para cargas mais comuns no início
       return CARGOS[Math.floor(Math.random() * CARGOS.length)];
+    }
+
+    /* ============================ Investimentos avançados ============================ */
+    function invLevel(id) {
+      return Number(state.investments?.[id] || 0);
+    }
+
+    function investmentCost(def) {
+      const level = invLevel(def.id);
+      if (level >= def.max) return Infinity;
+      return Math.round(def.base * Math.pow(def.growth, level));
+    }
+
+    function totalInvestmentLevels() {
+      return Object.values(state.investments || {}).reduce((sum, level) => sum + Number(level || 0), 0);
+    }
+
+    function investmentMatchesEvent(def, inv) {
+      const tags = EVENT_TAGS[def.id] || [];
+      if (inv.idsChance && inv.idsChance[def.id]) return true;
+      if (inv.idsCost && inv.idsCost[def.id]) return true;
+      if (inv.idsDuration && inv.idsDuration[def.id]) return true;
+      const maps = [inv.tagsChance, inv.tagsCost, inv.tagsDuration];
+      return maps.some(map => map && Object.keys(map).some(tag => tags.includes(tag)));
+    }
+
+    function multFromRate(rate, level, floor = 0.20) {
+      return Math.max(floor, 1 - Number(rate || 0) * level);
+    }
+
+    function investmentEffectForEvent(def) {
+      const tags = EVENT_TAGS[def.id] || [];
+      let chance = 1, cost = 1, duration = 1;
+      for (const inv of INVESTMENT_UPGRADES) {
+        const level = invLevel(inv.id);
+        if (!level) continue;
+
+        if (inv.generalChance) chance *= multFromRate(inv.generalChance, level, 0.25);
+        if (inv.generalCost) cost *= Math.max(0.25, 1 - inv.generalCost * level);
+        if (inv.generalDuration) duration *= multFromRate(inv.generalDuration, level, 0.35);
+
+        if (inv.idsChance?.[def.id]) chance *= multFromRate(inv.idsChance[def.id], level, 0.15);
+        if (inv.idsCost?.[def.id]) cost *= Math.max(0.15, 1 - inv.idsCost[def.id] * level);
+        if (inv.idsDuration?.[def.id]) duration *= multFromRate(inv.idsDuration[def.id], level, 0.20);
+
+        if (inv.tagsChance) tags.forEach(tag => { if (inv.tagsChance[tag]) chance *= multFromRate(inv.tagsChance[tag], level, 0.15); });
+        if (inv.tagsCost) tags.forEach(tag => { if (inv.tagsCost[tag]) cost *= Math.max(0.15, 1 - inv.tagsCost[tag] * level); });
+        if (inv.tagsDuration) tags.forEach(tag => { if (inv.tagsDuration[tag]) duration *= multFromRate(inv.tagsDuration[tag], level, 0.20); });
+      }
+      return { chance, cost, duration };
+    }
+
+    function investmentScalar(key) {
+      let value = 0;
+      for (const inv of INVESTMENT_UPGRADES) {
+        const level = invLevel(inv.id);
+        if (level && inv[key]) value += inv[key] * level;
+      }
+      return value;
+    }
+
+    function cargoInvestmentBonus(cargoId) {
+      let bonus = 0;
+      for (const inv of INVESTMENT_UPGRADES) {
+        const level = invLevel(inv.id);
+        if (!level) continue;
+        if (inv.deliveryBonus) bonus += inv.deliveryBonus * level;
+        if (inv.cargoBonus?.[cargoId]) bonus += inv.cargoBonus[cargoId] * level;
+        if (inv.perWagonBonus) bonus += inv.perWagonBonus * level * Math.max(0, wagonCount() - BASE_WAGONS);
+      }
+      return bonus;
+    }
+
+    function contractInvestmentBonus() {
+      return investmentScalar("contractBonus");
+    }
+
+    function penaltyReductionMult() {
+      return Math.max(0.25, 1 - investmentScalar("penaltyReduction"));
+    }
+
+    function stopFineMult() {
+      return Math.max(0.25, 1 - investmentScalar("stopFineReduction"));
+    }
+
+    function repairCostMult(source = "manual") {
+      let reduction = investmentScalar("repairCost");
+      if (source === "outsourced" || source === "paid") reduction += investmentScalar("paidRepairCost");
+      if (source === "outsourced") reduction += investmentScalar("offshiftCost");
+      return Math.max(0.30, 1 - reduction);
+    }
+
+    function repairTimeMult(source = "manual") {
+      let reduction = investmentScalar("repairTime");
+      if (source === "outsourced" || source === "paid") reduction += investmentScalar("paidRepairTime");
+      if (source === "outsourced") reduction += investmentScalar("offshiftTime");
+      return Math.max(0.35, 1 - reduction);
+    }
+
+    function buyAdvancedInvestment(id) {
+      const def = INVESTMENT_UPGRADES.find(item => item.id === id);
+      if (!def) return;
+      const level = invLevel(id);
+      if (level >= def.max) return;
+      const cost = investmentCost(def);
+      if (state.money < cost) {
+        addLog(`Caixa insuficiente para ${def.nome}.`, "bad");
+        return;
+      }
+      state.money -= cost;
+      state.investments[id] = level + 1;
+      addLog(`${def.emoji} ${def.nome} evoluído para nível ${level + 1}. ${def.effect}.`, "good");
+      sfx("buy");
+      investmentRenderSig = "";
+      render();
+    }
+
+    function openInvestmentModal() {
+      if (!investmentModalEl) return;
+      investmentModalEl.hidden = false;
+      investmentModalEl.setAttribute("aria-hidden", "false");
+      investmentRenderSig = "";
+      renderAdvancedInvestments(true);
+    }
+
+    function closeInvestmentModal() {
+      if (!investmentModalEl) return;
+      investmentModalEl.hidden = true;
+      investmentModalEl.setAttribute("aria-hidden", "true");
+    }
+
+    function renderInvestmentTabs() {
+      if (!investmentTabsEl) return;
+      investmentTabsEl.innerHTML = INVESTMENT_CATEGORIES.map(cat => `
+        <button class="investment-tab ${cat.id === activeInvestmentCategory ? "active" : ""}" type="button" data-invest-cat="${cat.id}">
+          ${cat.label}
+        </button>
+      `).join("");
+    }
+
+    function renderAdvancedInvestments(force = false) {
+      if (!investmentModalEl || investmentModalEl.hidden || !investmentListEl) return;
+      const levelSig = INVESTMENT_UPGRADES.map(def => `${def.id}:${invLevel(def.id)}`).join("|");
+      const moneyBucket = Math.floor(state.money / 50);
+      const sig = `${activeInvestmentCategory}|${moneyBucket}|${levelSig}`;
+      if (!force && sig === investmentRenderSig) return;
+      investmentRenderSig = sig;
+
+      renderInvestmentTabs();
+
+      const bought = totalInvestmentLevels();
+      const activeCount = Object.values(state.investments || {}).filter(v => Number(v || 0) > 0).length;
+      investmentSummaryEl.textContent = bought
+        ? `${bought} nível(is) comprados em ${activeCount} investimento(s). Bônus de valor: +${Math.round(investmentScalar("deliveryBonus") * 100)}%, velocidade: +${Math.round(investmentScalar("speedBonus") * 100)}%, redução de multas de parada: ${Math.round((1 - stopFineMult()) * 100)}%.`
+        : "Nenhum investimento avançado comprado ainda.";
+
+      const items = INVESTMENT_UPGRADES.filter(def => activeInvestmentCategory === "todos" || def.cat === activeInvestmentCategory);
+      investmentListEl.innerHTML = items.map(def => {
+        const level = invLevel(def.id);
+        const maxed = level >= def.max;
+        const cost = investmentCost(def);
+        return `
+          <article class="investment-card ${maxed ? "maxed" : ""}">
+            <div class="investment-card__head">
+              <span class="investment-card__emoji">${def.emoji}</span>
+              <div><h3>${def.nome}</h3><div class="effect">${def.effect}</div></div>
+              <span class="level">nível ${level}/${def.max}</span>
+            </div>
+            <p>${def.desc}</p>
+            <button class="action ${def.cat === "risco" || def.cat === "via" ? "secondary" : ""}" type="button" data-buy-investment="${def.id}" ${maxed || state.money < cost ? "disabled" : ""}>
+              ${maxed ? "Máximo" : `Comprar por ${formatCurrency(cost)}`}
+            </button>
+          </article>
+        `;
+      }).join("");
     }
 
     /* ============================ Log e Toasts ============================ */
@@ -937,7 +1261,10 @@
     /* ============================ Ações do jogador ============================ */
     function startPaidRepair(segment, source = "manual", force = false) {
       if (!segment || segment.status !== "broken") return false;
+      const originalBy = segment.by;
+      segment.by = source === "outsourced" ? "outsourced" : "paid";
       const cost = repairCost(segment.id);
+      segment.by = originalBy;
       if (!force && state.money < cost) {
         addLog(`Caixa insuficiente para reparar o ${SEGMENTS[segment.id].name}.`, "bad");
         return false;
@@ -946,8 +1273,8 @@
       state.worksSpent += cost;
       segment.status = "repairing";
       segment.by = source === "outsourced" ? "outsourced" : "paid";
-      segment.repairTotal = PAID_REPAIR_TIME;
-      segment.repairLeft = PAID_REPAIR_TIME;
+      segment.repairTotal = Math.max(3, PAID_REPAIR_TIME * repairTimeMult(segment.by));
+      segment.repairLeft = segment.repairTotal;
       const origem = source === "outsourced" ? "terceirizada fora do turno" : "terceirizada";
       addLog(`Equipe ${origem} enviada ao ${SEGMENTS[segment.id].name} por ${formatCurrency(cost)}.`, "work");
       sfx("buy");
@@ -1068,12 +1395,12 @@
         maintenanceFineNotice = 0;
         return;
       }
-      const fine = deliveryValue() * STOP_FINE_RATE * dt;
+      const fine = deliveryValue() * STOP_FINE_RATE * stopFineMult() * dt;
       addIncidentCost(fine, "", true);
       maintenanceFineNotice += dt;
       if (maintenanceFineNotice >= 5) {
         maintenanceFineNotice = 0;
-        addLog(`Multa por parada: ${formatCurrency(deliveryValue() * STOP_FINE_RATE)} por segundo até a via liberar.`, "bad");
+        addLog(`Multa por parada: ${formatCurrency(deliveryValue() * STOP_FINE_RATE * stopFineMult())} por segundo até a via liberar.`, "bad");
       }
     }
 
@@ -1084,7 +1411,7 @@
       const segment = candidates[Math.floor(Math.random() * candidates.length)];
       segment.status = "repairing";
       segment.by = def.id === "cruzamento_outra_composicao" ? "hold" : "incident";
-      segment.repairTotal = Number(def.blockDur || def.dur || 12);
+      segment.repairTotal = Math.max(3, Number(def.blockDur || def.dur || 12) * investmentEffectForEvent(def).duration);
       segment.repairLeft = segment.repairTotal;
       segment.incidentLabel = def.nome;
       segment.incidentEmoji = def.emoji;
@@ -1123,7 +1450,7 @@
 
       // A maior parte dos eventos agora é custo de via; os eventos originais continuam
       // existindo para variar ritmo, clima e mercado.
-      const useCostEvent = Math.random() < 0.78;
+      const useCostEvent = Math.random() < Math.max(0.25, 0.78 * (1 - Math.min(0.50, investmentScalar("generalChance"))));
       if (useCostEvent) {
         const pool = eligibleViaCostEvents();
         if (pool.length) {
@@ -1171,7 +1498,7 @@
       if (contractCooldown > 0) return;
       const target = 2 + Math.floor(Math.random() * 3); // 2..4
       const time = target * 30 + 16;
-      const reward = Math.round((state.cargoValue + state.wagonExtra * WAGON_BONUS) * target * 0.85);
+      const reward = Math.round((state.cargoValue + state.wagonExtra * WAGON_BONUS) * target * 0.85 * (1 + contractInvestmentBonus()));
       contract = { target, startDeliveries: state.deliveries, left: time, reward };
       addLog(`📋 Contrato expresso: entregue ${target} cargas em ${Math.round(time)}s por ${formatCurrency(reward)}.`, "event");
       showToast("📋", "Novo contrato expresso", `${target} entregas em ${Math.round(time)}s → ${formatCurrency(reward)}`);
@@ -1192,7 +1519,7 @@
         contract = null;
         contractCooldown = 18 + Math.random() * 16;
       } else if (contract.left <= 0) {
-        const penalty = Math.round(contract.reward * 0.35);
+        const penalty = Math.round(contract.reward * 0.35 * penaltyReductionMult());
         addIncidentCost(penalty, "⌛ Penalidade por atraso no contrato expresso", false);
         addLog(`Contrato expresso expirou. Penalidade aplicada: ${formatCurrency(penalty)}.`, "bad");
         contract = null;
@@ -1260,7 +1587,7 @@
       else { statusDotEl.className = "dot"; statusTextEl.textContent = "Linha operacional"; }
 
       nextBreakInfoEl.textContent = problem
-        ? `Parado: multa de ${formatCurrency(deliveryValue() * STOP_FINE_RATE)}/s até liberar a via.`
+        ? `Parado: multa de ${formatCurrency(deliveryValue() * STOP_FINE_RATE * stopFineMult())}/s até liberar a via.`
         : (activeEvent?.def.suppress
           ? "Via reforçada: sem novas falhas no momento."
           : `Próxima falha estimada em ${Math.ceil(state.nextBreakAt)}s · preventiva: ${state.preventRoundsLeft || 0} rodada(s)`);
@@ -1345,6 +1672,7 @@
 
       updateTrain();
       syncMarkers();
+      renderAdvancedInvestments();
     }
 
     /* ============================ Loop ============================ */
@@ -1402,6 +1730,24 @@
     }
 
     /* ============================ Eventos de UI ============================ */
+    advancedInvestBtn?.addEventListener("click", openInvestmentModal);
+    closeInvestmentsBtn?.addEventListener("click", closeInvestmentModal);
+    investmentModalEl?.addEventListener("click", (event) => {
+      if (event.target.closest("[data-close-investments]")) closeInvestmentModal();
+      const tab = event.target.closest("[data-invest-cat]");
+      if (tab) {
+        activeInvestmentCategory = tab.dataset.investCat;
+        investmentRenderSig = "";
+        renderAdvancedInvestments(true);
+      }
+      const buy = event.target.closest("[data-buy-investment]");
+      if (buy) buyAdvancedInvestment(buy.dataset.buyInvestment);
+    });
+    window.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && investmentModalEl && !investmentModalEl.hidden) closeInvestmentModal();
+    });
+
+
     speedUpgradeBtn.addEventListener("click", buySpeedUpgrade);
     cargoUpgradeBtn.addEventListener("click", buyCargoUpgrade);
     wagonUpgradeBtn.addEventListener("click", buyWagonUpgrade);

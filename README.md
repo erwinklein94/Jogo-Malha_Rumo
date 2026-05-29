@@ -83,3 +83,30 @@ Esta versão inclui uma camada de ocorrências de via que geram custo ao jogador
 - licença operacional vencida.
 
 Os eventos podem gerar custo imediato, custo recorrente por segundo, redução de velocidade, bloqueio de trecho e perda de sequência. Contratos expirados agora também geram penalidade financeira.
+
+
+## Investimentos avançados
+
+Esta versão inclui uma árvore de **73 investimentos avançados** compráveis pelo botão **Mais investimentos**.
+
+Categorias incluídas:
+
+- **Via:** inspeção, sensores, drenagem, dormentes, lastro, AMVs, oficina móvel, terceirizada premium e controle preditivo.
+- **Carga:** terminais, rastreabilidade, certificações, cargas premium, refrigeradas, expressas, industriais e sazonais.
+- **Risco financeiro:** seguros, compliance, gestão documental, contingência, gestão ambiental e renovação automática.
+- **Velocidade:** sinalização moderna, CTC, rádio digital, piloto automático, curvas, traçado, pátios e despacho inteligente.
+- **Vagões:** reforço de pontes, classificação de via, locomotiva auxiliar, freio eletrônico, engates, câmeras e balanceamento.
+- **Previsibilidade:** sala de crise, painel preditivo, mapa de risco, histórico inteligente, IA, janelas de manutenção e previsão climática.
+
+Os investimentos afetam diretamente:
+
+- chance de ocorrência dos eventos negativos;
+- custo imediato e custo recorrente dos eventos;
+- duração dos bloqueios;
+- custo e tempo de manutenção terceirizada;
+- multa por parada;
+- penalidade de contrato expirado;
+- velocidade média;
+- valor da entrega;
+- bônus de contratos expressos;
+- risco de operar com muitos vagões.
