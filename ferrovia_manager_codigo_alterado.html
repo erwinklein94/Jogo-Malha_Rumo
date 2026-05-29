@@ -675,10 +675,215 @@
     .toast .t-body strong { display: block; font-size: .92rem; }
     .toast .t-body span { font-size: .82rem; color: rgba(255,255,255,.82); }
 
+
+
+    /* ===== Ajuste solicitado: zoom out, investimentos acima da dinâmica e custos abaixo ===== */
+    :root { --compact-gap: 10px; }
+
+    .header-shell,
+    main {
+      max-width: 1680px;
+    }
+
+    header {
+      padding: 10px 16px 12px;
+      border-bottom-width: 3px;
+    }
+
+    .header-shell { gap: 10px; }
+    .rumo-logo { width: 102px; }
+    .brand-lockup { gap: 12px; }
+    .brand-title { padding-left: 13px; }
+    .brand-title strong { font-size: .92rem; }
+    .brand-title span { font-size: .78rem; }
+    .hud { gap: var(--compact-gap); }
+    .stat { padding: 10px 12px; }
+    .stat small { font-size: .66rem; margin-bottom: 4px; }
+    .stat strong { font-size: 1rem; }
+
+    main { padding: 16px 14px 28px; }
+    .title-row { align-items: center; margin: 6px 0 10px; }
+    h1 { font-size: clamp(1.55rem, 2.6vw, 2.55rem); margin-bottom: 5px; }
+    .subtitle { max-width: 980px; font-size: .9rem; line-height: 1.38; }
+    .status-pill { padding: 8px 12px; font-size: .86rem; }
+    .event-banner { margin-bottom: 12px; padding: 9px 12px; }
+    .event-banner .ev-body strong { font-size: .9rem; }
+    .event-banner .ev-body span { font-size: .78rem; }
+    .event-banner .ev-timer { padding: 5px 10px; font-size: .82rem; }
+
+    .layout {
+      grid-template-columns: minmax(0, 1fr) minmax(290px, 330px);
+      gap: 12px;
+      align-items: start;
+    }
+
+    .card { border-radius: 18px; }
+    .card-header { padding: 12px 14px 10px; }
+    .card-header h2 { font-size: .98rem; }
+    .card-header span { font-size: .78rem; }
+    .cargo-badge { padding: 5px 9px; font-size: .78rem; }
+
+    .rail-card { display: grid; grid-template-rows: auto auto minmax(310px, 1fr) auto; }
+    .rail-card__header { min-height: 54px; }
+
+    .investment-panel {
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--rumo-cinza-200);
+      background: linear-gradient(180deg, #FFFFFF, rgba(242,245,246,.72));
+    }
+
+    .mini-heading {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 8px;
+      color: var(--rumo-azul);
+    }
+    .mini-heading strong { font-size: .88rem; letter-spacing: -.01em; }
+    .mini-heading span { color: var(--rumo-texto-claro); font-size: .76rem; font-weight: 800; }
+
+    .investment-panel .section-body { padding: 0; }
+    .controls {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(118px, 1fr));
+      gap: 8px;
+    }
+
+    .upgrade {
+      padding: 9px;
+      border-radius: 13px;
+      min-height: 138px;
+    }
+    .upgrade-head { gap: 7px; margin-bottom: 5px; align-items: flex-start; }
+    .upgrade-ico { width: 28px; height: 28px; border-radius: 8px; font-size: .98rem; }
+    .upgrade h3 { font-size: .8rem; line-height: 1.12; }
+    .upgrade .lvl { font-size: .66rem; }
+    .upgrade p { font-size: .7rem; line-height: 1.28; margin-bottom: 8px; }
+
+    button.action {
+      padding: 8px 9px;
+      border-radius: 10px;
+      font-size: .74rem;
+      box-shadow: 0 8px 16px rgba(0, 56, 101, .12);
+    }
+
+    .investment-panel .contract {
+      margin-top: 8px;
+      padding: 9px 11px;
+      border: 1px solid var(--rumo-cinza-200);
+      border-radius: 13px;
+      background: linear-gradient(135deg, rgba(251,211,0,.10), rgba(247,131,68,.06));
+      clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 0 100%);
+    }
+    .investment-panel .contract .ct-ico { width: 30px; height: 30px; font-size: 1rem; }
+    .investment-panel .contract .ct-body strong { font-size: .82rem; }
+    .investment-panel .contract .ct-body span { font-size: .73rem; }
+    .investment-panel .contract .ct-timer { padding: 5px 9px; font-size: .76rem; }
+
+    .rail-area {
+      height: clamp(318px, 41vh, 430px);
+      min-height: 318px;
+    }
+    .rail-area::before { inset: 12px; border-radius: 18px; }
+    .ballast { stroke-width: 22; }
+    .tie { stroke-width: 4; }
+    .steel-rail { stroke-width: 2.6; }
+    .segment { stroke-width: 24; }
+
+    .landmark {
+      width: 54px;
+      height: 54px;
+      border-radius: 14px;
+      font-size: 1.05rem;
+      top: 50%;
+    }
+    .landmark .lm-ico { width: 30px; height: 30px; }
+    .landmark.a { left: 5.5%; top: 50%; }
+    .landmark.b { left: 94.5%; top: 64%; }
+    .landmark-label { font-size: .7rem; top: calc(50% + 34px); }
+    .landmark-label.a { left: 5.5%; top: calc(50% + 34px); }
+    .landmark-label.b { left: 94.5%; top: calc(64% + 34px); }
+    .train-layer { --car-scale: .74; }
+    .break-marker { min-width: 135px; padding: 8px; font-size: .78rem; }
+    .break-marker strong { font-size: .78rem; }
+    .break-marker small { font-size: .7rem; }
+    .break-marker button { padding: 7px 8px; font-size: .72rem; }
+
+    .costs-panel {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(112px, 1fr));
+      gap: 8px;
+      padding: 10px 12px 12px;
+      border-top: 1px solid var(--rumo-cinza-200);
+      background: linear-gradient(180deg, rgba(242,245,246,.62), #FFFFFF);
+    }
+    .cost-card {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      align-items: center;
+      gap: 3px 8px;
+      padding: 9px 10px;
+      border: 1px solid var(--rumo-cinza-200);
+      border-radius: 13px;
+      background: #FFFFFF;
+      min-height: 64px;
+      clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 0 100%);
+    }
+    .cost-card .cost-ico {
+      grid-row: span 2;
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      display: grid;
+      place-items: center;
+      color: var(--rumo-texto-claro);
+      background: var(--rumo-cinza-100);
+      font-weight: 900;
+    }
+    .cost-card small {
+      color: var(--rumo-texto);
+      font-size: .68rem;
+      font-weight: 900;
+      line-height: 1.1;
+    }
+    .cost-card strong {
+      color: var(--danger);
+      font-size: .86rem;
+      font-variant-numeric: tabular-nums;
+      white-space: nowrap;
+    }
+    .cost-card.total {
+      border-color: rgba(216,69,69,.28);
+      background: linear-gradient(180deg, #FFFFFF, rgba(216,69,69,.045));
+    }
+    .cost-card.total .cost-ico { color: #4A0B0B; background: #FBE0E0; }
+
+    .side-content { gap: 12px; }
+    .side-content .section-body { padding: 12px 14px 14px; }
+    .stats-grid { grid-template-columns: 1fr; gap: 8px; }
+    .stat-cell { padding: 9px 10px; }
+    .stat-cell small { font-size: .66rem; }
+    .stat-cell strong { font-size: .92rem; }
+    .log { height: 296px; gap: 7px; }
+    .log-item { padding: 8px 9px; font-size: .78rem; }
+    .footer-actions { gap: 8px; margin-top: 10px; }
+
+    .help {
+      margin-top: 12px;
+      padding: 11px 14px;
+      font-size: .84rem;
+      line-height: 1.42;
+      border-radius: 15px;
+    }
+
     @media (max-width: 980px) {
       .hud { grid-template-columns: repeat(2, minmax(150px, 1fr)); }
       .layout { grid-template-columns: 1fr; }
-      .rail-area { height: 480px; }
+      .controls { grid-template-columns: repeat(3, minmax(150px, 1fr)); }
+      .costs-panel { grid-template-columns: repeat(3, minmax(140px, 1fr)); }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .rail-area { height: 420px; }
     }
 
     @media (max-width: 620px) {
@@ -693,10 +898,13 @@
       .hud { grid-template-columns: 1fr 1fr; gap: 8px; }
       .title-row { flex-direction: column; }
       .status-pill { width: 100%; justify-content: center; }
-      .rail-area { min-height: 360px; height: 360px; }
-      .landmark { width: 50px; height: 50px; border-radius: 12px; font-size: 1.1rem; }
-      .landmark .lm-ico { width: 28px; height: 28px; }
-      .train-layer { --car-scale: .82; }
+      .controls { grid-template-columns: 1fr; }
+      .costs-panel { grid-template-columns: 1fr 1fr; }
+      .mini-heading { flex-direction: column; align-items: flex-start; }
+      .rail-area { min-height: 340px; height: 340px; }
+      .landmark { width: 46px; height: 46px; border-radius: 12px; font-size: 1rem; }
+      .landmark .lm-ico { width: 26px; height: 26px; }
+      .train-layer { --car-scale: .68; }
       .break-marker { min-width: 138px; font-size: .85rem; }
       .footer-actions { grid-template-columns: 1fr; }
       .toast-wrap { left: 10px; right: 10px; align-items: stretch; }
@@ -766,8 +974,8 @@
     </div>
 
     <section class="layout">
-      <article class="card">
-        <div class="card-header">
+      <article class="card rail-card">
+        <div class="card-header rail-card__header">
           <div>
             <h2>Linha ferroviária</h2>
             <span id="nextBreakInfo">Próxima falha em breve...</span>
@@ -775,39 +983,10 @@
           <span class="cargo-badge" id="cargoBadge"><span id="cargoEmoji">🌾</span> <b id="cargoName">Grãos</b> <span class="mult" id="cargoMult">×1.0</span></span>
         </div>
 
-        <div class="rail-area" id="railArea">
-          <svg class="rail-svg" viewBox="0 0 1000 500" preserveAspectRatio="none" aria-hidden="true">
-            <path class="ballast" id="railBase" d="M55,250 C180,250 235,205 330,205 S510,285 620,285 790,220 945,220" fill="none" />
-            <g id="trackDecor"></g>
-            <path id="seg-0" class="segment" d="M55,250 C120,250 168,238 218,224" fill="none" />
-            <path id="seg-1" class="segment" d="M218,224 C262,211 296,205 330,205" fill="none" />
-            <path id="seg-2" class="segment" d="M330,205 C414,205 463,285 548,285" fill="none" />
-            <path id="seg-3" class="segment" d="M548,285 C602,285 658,257 715,238" fill="none" />
-            <path id="seg-4" class="segment" d="M715,238 C786,214 856,220 945,220" fill="none" />
-          </svg>
-
-          <div class="landmark a">
-            <svg class="lm-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M3 21h18M5 21V8l7-4 7 4v13M9 21v-5h6v5"/>
-            </svg>
-          </div>
-          <div class="landmark b">
-            <svg class="lm-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M4 22V4h9l-1.5 4H20v8H11v6z"/>
-            </svg>
-          </div>
-          <div class="landmark-label a">Terminal de origem</div>
-          <div class="landmark-label b">Terminal de destino</div>
-
-          <div class="train-layer" id="trainLayer" aria-label="Composição: locomotiva puxando vagões em vista superior"></div>
-        </div>
-      </article>
-
-      <aside class="side-content">
-        <article class="card">
-          <div class="card-header">
-            <h2>Centro de operações</h2>
-            <span>Invista com cuidado</span>
+        <div class="investment-panel" aria-label="Centro de operações e investimentos">
+          <div class="mini-heading">
+            <strong>Centro de operações · Investimentos</strong>
+            <span>Invista acima da dinâmica do trem</span>
           </div>
           <div class="section-body controls">
             <div class="upgrade">
@@ -834,7 +1013,7 @@
                 <h3>Acoplar vagão extra</h3>
                 <span class="lvl" id="wagonLvl">2 vagões</span>
               </div>
-              <p>Adiciona um vagão à composição: mais carga por viagem (e aparece no trem).</p>
+              <p>Adiciona um vagão à composição: mais carga por viagem e aparece no trem.</p>
               <button class="action" id="wagonUpgrade">Comprar</button>
             </div>
             <div class="upgrade">
@@ -843,7 +1022,7 @@
                 <h3>Equipe própria</h3>
                 <span class="lvl" id="crewLvl">sem equipe</span>
               </div>
-              <p>Uma equipe interna repara falhas sozinha (de graça, porém mais devagar). Níveis maiores agem mais rápido e em mais trechos.</p>
+              <p>Equipe interna repara falhas sozinha, grátis e de forma automática.</p>
               <button class="action secondary" id="crewUpgrade">Comprar</button>
             </div>
             <div class="upgrade">
@@ -852,7 +1031,7 @@
                 <h3>Manutenção preventiva</h3>
                 <span class="lvl" id="preventLvl">nível 0</span>
               </div>
-              <p>Reduz a frequência de quebras na via. Cada nível espaça mais as falhas.</p>
+              <p>Reduz a frequência de quebras na via e estabiliza a operação.</p>
               <button class="action" id="preventUpgrade">Comprar</button>
             </div>
             <div class="upgrade">
@@ -860,7 +1039,7 @@
                 <span class="upgrade-ico amber">🏦</span>
                 <h3>Empréstimo emergencial</h3>
               </div>
-              <p>Use apenas se a linha quebrar e faltar caixa. Recebe R$ 500 e paga R$ 650 nas próximas entregas.</p>
+              <p>Use se faltar caixa: recebe R$ 500 e paga R$ 650 nas entregas.</p>
               <button class="action danger" id="loanButton">Pegar empréstimo</button>
             </div>
           </div>
@@ -872,8 +1051,46 @@
             </div>
             <span class="ct-timer" id="ctTimer" style="display:none">0s</span>
           </div>
-        </article>
+        </div>
 
+        <div class="rail-area" id="railArea">
+          <svg class="rail-svg" viewBox="0 0 1000 500" preserveAspectRatio="none" aria-hidden="true">
+            <path class="ballast" id="railBase" d="M55,250 C100,85 195,80 245,205 S385,320 435,160 S575,25 625,185 S765,345 820,155 S940,85 945,240 C900,395 760,390 700,250 S560,120 500,280 S350,430 295,260 S150,115 105,285 C65,425 265,465 340,340 S530,205 610,355 S800,510 945,320" fill="none" />
+            <g id="trackDecor"></g>
+            <path id="seg-0" class="segment" d="M55,250 C100,85 195,80 245,205 S385,320 435,160" fill="none" />
+            <path id="seg-1" class="segment" d="M435,160 S575,25 625,185 S765,345 820,155" fill="none" />
+            <path id="seg-2" class="segment" d="M820,155 S940,85 945,240 C900,395 760,390 700,250" fill="none" />
+            <path id="seg-3" class="segment" d="M700,250 S560,120 500,280 S350,430 295,260" fill="none" />
+            <path id="seg-4" class="segment" d="M295,260 S150,115 105,285 C65,425 265,465 340,340 S530,205 610,355 S800,510 945,320" fill="none" />
+          </svg>
+
+          <div class="landmark a">
+            <svg class="lm-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 21h18M5 21V8l7-4 7 4v13M9 21v-5h6v5"/>
+            </svg>
+          </div>
+          <div class="landmark b">
+            <svg class="lm-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 22V4h9l-1.5 4H20v8H11v6z"/>
+            </svg>
+          </div>
+          <div class="landmark-label a">Terminal de origem</div>
+          <div class="landmark-label b">Terminal de destino</div>
+
+          <div class="train-layer" id="trainLayer" aria-label="Composição: locomotiva puxando vagões em vista superior"></div>
+        </div>
+
+        <div class="costs-panel" aria-label="Cards de custos da operação">
+          <div class="cost-card"><span class="cost-ico">🏗️</span><small>Custo de obras</small><strong id="costWorks">R$ 0</strong></div>
+          <div class="cost-card"><span class="cost-ico">⛽</span><small>Custo operacional</small><strong id="costOperational">R$ 0</strong></div>
+          <div class="cost-card"><span class="cost-ico">🔧</span><small>Custo de manutenção</small><strong id="costMaintenance">R$ 0</strong></div>
+          <div class="cost-card"><span class="cost-ico">👷</span><small>Custo da equipe</small><strong id="costCrew">R$ 0</strong></div>
+          <div class="cost-card"><span class="cost-ico">%</span><small>Juros do empréstimo</small><strong id="costLoan">R$ 0</strong></div>
+          <div class="cost-card total"><span class="cost-ico">Σ</span><small>Total de custos</small><strong id="costTotal">R$ 0</strong></div>
+        </div>
+      </article>
+
+      <aside class="side-content">
         <article class="card">
           <div class="card-header">
             <h2>Estatísticas</h2>
@@ -962,11 +1179,11 @@
     };
 
     const SEGMENTS = [
-      { id: 0, name: "Trecho 1", x: 20, y: 45 },
-      { id: 1, name: "Trecho 2", x: 33, y: 41 },
-      { id: 2, name: "Trecho 3", x: 50, y: 56 },
-      { id: 3, name: "Trecho 4", x: 68, y: 51 },
-      { id: 4, name: "Trecho 5", x: 86, y: 46 }
+      { id: 0, name: "Trecho 1", x: 25, y: 38 },
+      { id: 1, name: "Trecho 2", x: 63, y: 37 },
+      { id: 2, name: "Trecho 3", x: 87, y: 50 },
+      { id: 3, name: "Trecho 4", x: 49, y: 56 },
+      { id: 4, name: "Trecho 5", x: 58, y: 73 }
     ];
 
     const defaultState = {
@@ -1064,6 +1281,13 @@
     const stWorks = $("#stWorks");
     const stUptime = $("#stUptime");
 
+    const costWorksEl = $("#costWorks");
+    const costOperationalEl = $("#costOperational");
+    const costMaintenanceEl = $("#costMaintenance");
+    const costCrewEl = $("#costCrew");
+    const costLoanEl = $("#costLoan");
+    const costTotalEl = $("#costTotal");
+
     /* ============================ Utilidades ============================ */
     function formatCurrency(value) {
       return Math.round(value).toLocaleString("pt-BR", { style: "currency", currency: "BRL", maximumFractionDigits: 0 });
@@ -1124,6 +1348,25 @@
     function wagonUpgradeCost() { return Math.round(900 * Math.pow(1.8, state.wagonExtra)); }
     function crewUpgradeCost() { return [1500, 2600, 4200][state.crewLevel] ?? Infinity; }
     function preventUpgradeCost() { return [1300, 2300, 3800][state.preventLevel] ?? Infinity; }
+
+    // Indicadores dos cards de custos exibidos abaixo da dinâmica do trem.
+    function operatingCostEstimate() {
+      return Math.round(state.deliveries * (70 + wagonCount() * 22) + (state.uptimeMs / 1000) * (0.8 + state.speedLevel * 0.18));
+    }
+    function maintenanceCostEstimate() {
+      const preventiveInvestment = [0, 1300, 3600, 7400][state.preventLevel] ?? 7400;
+      return Math.round(preventiveInvestment + state.deliveries * 30 + repairingCount() * 90);
+    }
+    function crewCostEstimate() {
+      const crewInvestment = [0, 1500, 4100, 8300][state.crewLevel] ?? 8300;
+      return Math.round(crewInvestment + (state.uptimeMs / 60000) * state.crewLevel * 18);
+    }
+    function loanInterestEstimate() {
+      return state.loanDebt > 0 ? Math.min(150, Math.round(state.loanDebt * 0.23)) : 0;
+    }
+    function totalCostEstimate() {
+      return state.worksSpent + operatingCostEstimate() + maintenanceCostEstimate() + crewCostEstimate() + loanInterestEstimate();
+    }
 
     function currentSpeed() {
       const base = 1 + (state.speedLevel - 1) * 0.22;
@@ -1774,6 +2017,14 @@
       stWorks.textContent = formatCurrency(state.worksSpent);
       const totalSec = Math.floor(state.uptimeMs / 1000);
       stUptime.textContent = Math.floor(totalSec / 60) + ":" + String(totalSec % 60).padStart(2, "0");
+
+      // cards de custos abaixo da tela da dinâmica do trem
+      costWorksEl.textContent = formatCurrency(state.worksSpent);
+      costOperationalEl.textContent = formatCurrency(operatingCostEstimate());
+      costMaintenanceEl.textContent = formatCurrency(maintenanceCostEstimate());
+      costCrewEl.textContent = formatCurrency(crewCostEstimate());
+      costLoanEl.textContent = formatCurrency(loanInterestEstimate());
+      costTotalEl.textContent = formatCurrency(totalCostEstimate());
 
       updateTrain();
       syncMarkers();
