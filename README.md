@@ -1,125 +1,58 @@
-# Ferrovia Manager
+# Jogo Trilha de Carreira Rumo
 
-Projeto estático pronto para publicar no **GitHub Pages**.
+Jogo em HTML, CSS e JavaScript para perguntas e respostas sobre as áreas de qualidade presentes no banco de dados anexado.
+
+O usuário começa como **Trocador de dormente** e sobe de nível a cada acerto até chegar a **Vice-presidente** e **Presidente da empresa**.
+
+## Como abrir localmente
+
+1. Baixe ou clone este repositório.
+2. Abra o arquivo `index.html` no navegador.
+
+Não precisa instalar nada. O jogo roda 100% no navegador.
+
+## Como publicar no GitHub Pages
+
+### Opção 1: Pelo site do GitHub
+
+1. Crie um novo repositório no GitHub.
+2. Envie os arquivos deste pacote para a raiz do repositório:
+   - `index.html`
+   - `.nojekyll`
+   - `README.md`
+3. No repositório, entre em **Settings**.
+4. Vá em **Pages**.
+5. Em **Build and deployment**, escolha **Deploy from a branch**.
+6. Em **Branch**, selecione:
+   - Branch: `main`
+   - Folder: `/root`
+7. Clique em **Save**.
+8. Depois que o GitHub publicar, o link aparecerá na própria tela de **Pages**.
+
+### Opção 2: Pelo terminal
+
+```bash
+git init
+git add .
+git commit -m "Adicionar jogo trilha de carreira"
+git branch -M main
+git remote add origin https://github.com/SEU-USUARIO/NOME-DO-REPOSITORIO.git
+git push -u origin main
+```
+
+Depois configure o GitHub Pages em **Settings > Pages**, usando `main` e `/root`.
 
 ## Estrutura
 
 ```text
 .
 ├── index.html
-├── assets/
-│   ├── css/
-│   │   └── styles.css
-│   ├── js/
-│   │   └── app.js
-│   └── img/
-│       └── favicon.svg
-└── .nojekyll
-```
-
-## Como publicar no GitHub Pages
-
-1. Crie um repositório no GitHub.
-2. Envie todos os arquivos desta pasta para a raiz do repositório.
-3. No GitHub, vá em **Settings → Pages**.
-4. Em **Build and deployment**, selecione:
-   - **Source:** Deploy from a branch
-   - **Branch:** `main`
-   - **Folder:** `/root`
-5. Salve e aguarde o link do GitHub Pages ser gerado.
-
-## Rodar localmente
-
-Você pode abrir o `index.html` direto no navegador.
-
-Também pode usar um servidor local simples:
-
-```bash
-python -m http.server 8000
-```
-
-Depois acesse:
-
-```text
-http://localhost:8000
+├── .nojekyll
+└── README.md
 ```
 
 ## Observações
 
-- Não usa framework.
-- Não precisa de Node, build, bundler ou dependências externas.
-- O progresso do jogo é salvo no `localStorage` do navegador.
-- O layout está otimizado para caber em uma tela no desktop e manter responsividade em telas menores.
-
-
-## Eventos de custo de via
-
-Esta versão inclui uma camada de ocorrências de via que geram custo ao jogador, como:
-
-- trilho empenado por calor;
-- lastro encharcado;
-- dormentes danificados;
-- furto de cabos de sinalização;
-- queda de barreira;
-- vegetação na faixa de domínio;
-- alagamento;
-- falha em chave/AMV;
-- passagem de nível bloqueada;
-- animal na via;
-- veículo obstruindo a linha;
-- sinal vermelho indevido;
-- inspeção obrigatória surpresa;
-- fiscalização com não conformidade;
-- restrição temporária de velocidade;
-- erosão;
-- ponte com limite de carga;
-- desalinhamento geométrico;
-- contaminação no leito da via;
-- pane no detector de roda quente;
-- interferência elétrica;
-- baixa aderência;
-- descarrilamento leve;
-- cruzamento com outra composição;
-- licença operacional vencida.
-
-Os eventos podem gerar custo imediato, custo recorrente por segundo, redução de velocidade, bloqueio de trecho e perda de sequência. Contratos expirados agora também geram penalidade financeira.
-
-
-## Investimentos avançados
-
-Esta versão inclui uma árvore de **73 investimentos avançados** compráveis pelo botão **Mais investimentos**.
-
-Categorias incluídas:
-
-- **Via:** inspeção, sensores, drenagem, dormentes, lastro, AMVs, oficina móvel, terceirizada premium e controle preditivo.
-- **Carga:** terminais, rastreabilidade, certificações, cargas premium, refrigeradas, expressas, industriais e sazonais.
-- **Risco financeiro:** seguros, compliance, gestão documental, contingência, gestão ambiental e renovação automática.
-- **Velocidade:** sinalização moderna, CTC, rádio digital, piloto automático, curvas, traçado, pátios e despacho inteligente.
-- **Vagões:** reforço de pontes, classificação de via, locomotiva auxiliar, freio eletrônico, engates, câmeras e balanceamento.
-- **Previsibilidade:** sala de crise, painel preditivo, mapa de risco, histórico inteligente, IA, janelas de manutenção e previsão climática.
-
-Os investimentos afetam diretamente:
-
-- chance de ocorrência dos eventos negativos;
-- custo imediato e custo recorrente dos eventos;
-- duração dos bloqueios;
-- custo e tempo de manutenção terceirizada;
-- multa por parada;
-- penalidade de contrato expirado;
-- velocidade média;
-- valor da entrega;
-- bônus de contratos expressos;
-- risco de operar com muitos vagões.
-
-
-## Cockpit UX v2
-
-A interface foi reformulada para priorizar o que importa no jogo:
-
-- ferrovia e trem no centro da tela;
-- indicadores principais em uma faixa compacta;
-- evento operacional sempre visível;
-- investimentos rápidos abaixo da simulação;
-- estatísticas e custos no rodapé;
-- botão de investimentos avançados em modal;
-- alternância entre tema claro e tema escuro.
+- O arquivo principal precisa se chamar `index.html` para abrir automaticamente no GitHub Pages.
+- O arquivo `.nojekyll` evita que o GitHub tente processar o projeto como um site Jekyll.
+- Todo o conteúdo do jogo está dentro de `index.html`, então é fácil publicar e compartilhar.
