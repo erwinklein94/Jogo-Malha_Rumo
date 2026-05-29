@@ -54,6 +54,210 @@
       { id: "desgaste", nome: "Desgaste acelerado",     emoji: "⚠️", desc: "Trilhos castigados: falhas chegam mais cedo.", dur: 14, wear: 1.7 }
     ];
 
+
+    const VIA_COST_EVENTS = [
+      {
+        id: "trilho_empenado_calor",
+        nome: "Trilho empenado por calor",
+        emoji: "🌡️",
+        desc: "Calor deformou o trilho: correção emergencial e trem mais lento.",
+        dur: 18, speed: 0.62, block: true, deliveryPct: 0.18, perSpeedLevel: 32,
+        weight: 9
+      },
+      {
+        id: "lastro_encharcado",
+        nome: "Lastro encharcado",
+        emoji: "🌧️",
+        desc: "Base da via instável: operação lenta e drenagem emergencial.",
+        dur: 24, speed: 0.55, recurringDeliveryPct: 0.006, fixed: 120, preventRelief: true,
+        weight: 10
+      },
+      {
+        id: "dormentes_danificados",
+        nome: "Dormentes danificados",
+        emoji: "🪵",
+        desc: "Dormentes precisam de troca antes da composição seguir.",
+        dur: 20, block: true, deliveryPct: 0.20, perWagon: 25, preventRelief: true,
+        weight: 9
+      },
+      {
+        id: "furto_cabos_sinalizacao",
+        nome: "Furto de cabos de sinalização",
+        emoji: "⚡",
+        desc: "Sinalização degradada: reposição imediata e velocidade reduzida.",
+        dur: 32, speed: 0.50, deliveryPct: 0.16, fixed: 180, recurringFixed: 9,
+        weight: 8
+      },
+      {
+        id: "queda_barreira",
+        nome: "Queda de barreira na via",
+        emoji: "🪨",
+        desc: "Material sobre a linha: remoção obrigatória e trecho bloqueado.",
+        dur: 26, block: true, deliveryPct: 0.30, fixed: 220,
+        weight: 7
+      },
+      {
+        id: "vegetacao_faixa_dominio",
+        nome: "Vegetação na faixa de domínio",
+        emoji: "🌿",
+        desc: "Limpeza emergencial para manter gabarito e visibilidade.",
+        dur: 16, speed: 0.78, deliveryPct: 0.10, fixed: 90,
+        weight: 11
+      },
+      {
+        id: "alagamento_trecho",
+        nome: "Alagamento no trecho",
+        emoji: "🌊",
+        desc: "Água no leito da via: inspeção, atraso e bombeamento.",
+        dur: 28, block: true, deliveryPct: 0.22, recurringDeliveryPct: 0.004,
+        weight: 7
+      },
+      {
+        id: "falha_chave_amv",
+        nome: "Falha em chave / AMV",
+        emoji: "🔀",
+        desc: "Aparelho de mudança de via travou: manutenção especializada.",
+        dur: 30, block: true, deliveryPct: 0.34, fixed: 280, perContract: 25,
+        weight: 6
+      },
+      {
+        id: "passagem_nivel_bloqueada",
+        nome: "Passagem de nível bloqueada",
+        emoji: "🚧",
+        desc: "Interferência externa segura a composição no trecho.",
+        dur: 15, block: true, deliveryPct: 0.08, fixed: 70,
+        weight: 11
+      },
+      {
+        id: "animal_na_via",
+        nome: "Animal na via",
+        emoji: "🐄",
+        desc: "Parada de segurança até liberação da linha.",
+        dur: 10, block: true, deliveryPct: 0.06,
+        weight: 12
+      },
+      {
+        id: "obstrucao_veiculo",
+        nome: "Veículo obstruindo a linha",
+        emoji: "🚗",
+        desc: "Obstrução por terceiro gera espera e custo operacional.",
+        dur: 18, block: true, deliveryPct: 0.13, fixed: 110,
+        weight: 8
+      },
+      {
+        id: "sinal_vermelho_indevido",
+        nome: "Sinal vermelho indevido",
+        emoji: "🚦",
+        desc: "Falha segura a composição e reduz eficiência da viagem.",
+        dur: 14, speed: 0.35, deliveryPct: 0.07, recurringFixed: 6,
+        weight: 10
+      },
+      {
+        id: "inspecao_obrigatoria_surpresa",
+        nome: "Inspeção obrigatória surpresa",
+        emoji: "🔎",
+        desc: "Parada regulatória para checagem do trecho.",
+        dur: 16, block: true, deliveryPct: 0.12, fixed: 130,
+        weight: 7
+      },
+      {
+        id: "fiscalizacao_nao_conformidade",
+        nome: "Fiscalização com não conformidade",
+        emoji: "📋",
+        desc: "Irregularidade detectada: multa administrativa imediata.",
+        dur: 8, deliveryPct: 0.25, fixed: 180, preventPenalty: true,
+        weight: 7
+      },
+      {
+        id: "restricao_temporaria_velocidade",
+        nome: "Restrição temporária de velocidade",
+        emoji: "🐢",
+        desc: "Limite operacional reduz a velocidade e aumenta o custo do trajeto.",
+        dur: 26, speed: 0.48, recurringDeliveryPct: 0.005, deliveryPct: 0.05,
+        weight: 10
+      },
+      {
+        id: "erosao_trecho",
+        nome: "Erosão no trecho",
+        emoji: "⛰️",
+        desc: "Talude comprometido: intervenção pesada obrigatória.",
+        dur: 34, block: true, deliveryPct: 0.42, fixed: 340, preventRelief: true,
+        weight: 5
+      },
+      {
+        id: "ponte_limite_carga",
+        nome: "Ponte com limite de carga",
+        emoji: "🌉",
+        desc: "Carga acima do ideal exige travessia lenta e custo por vagão.",
+        dur: 24, speed: 0.42, deliveryPct: 0.08, perWagon: 95, minWagons: 6,
+        weight: 8
+      },
+      {
+        id: "desalinhamento_geometrico",
+        nome: "Desalinhamento geométrico da via",
+        emoji: "📐",
+        desc: "Via fora de geometria: nivelamento emergencial antes de seguir.",
+        dur: 22, block: true, deliveryPct: 0.24, perSpeedLevel: 22, preventRelief: true,
+        weight: 8
+      },
+      {
+        id: "contaminacao_leito",
+        nome: "Contaminação no leito da via",
+        emoji: "☣️",
+        desc: "Limpeza ambiental e multa por contaminação do trecho.",
+        dur: 20, block: true, deliveryPct: 0.38, fixed: 360,
+        weight: 4
+      },
+      {
+        id: "pane_detector_roda_quente",
+        nome: "Pane no detector de roda quente",
+        emoji: "🔥",
+        desc: "Segurança exige inspeção manual da composição.",
+        dur: 18, block: true, deliveryPct: 0.14, perWagon: 35,
+        weight: 8
+      },
+      {
+        id: "interferencia_eletrica",
+        nome: "Interferência elétrica na sinalização",
+        emoji: "📡",
+        desc: "Oscilação causa pequenas perdas e lentidão temporária.",
+        dur: 22, speed: 0.68, recurringFixed: 8, deliveryPct: 0.06,
+        weight: 11
+      },
+      {
+        id: "baixa_aderencia",
+        nome: "Baixa aderência no trilho",
+        emoji: "🛞",
+        desc: "Patinação aumenta consumo e reduz velocidade.",
+        dur: 20, speed: 0.58, recurringPerWagon: 5, deliveryPct: 0.05,
+        weight: 10
+      },
+      {
+        id: "descarrilamento_leve_vagao_vazio",
+        nome: "Descarrilamento leve de vagão vazio",
+        emoji: "🚃",
+        desc: "Evento raro e caro: recolocação do vagão e trecho bloqueado.",
+        dur: 42, block: true, deliveryPct: 0.55, fixed: 500, perWagon: 70, rare: true,
+        weight: 2
+      },
+      {
+        id: "cruzamento_outra_composicao",
+        nome: "Cruzamento com outra composição atrasada",
+        emoji: "🚆",
+        desc: "Via ocupada por outro trem: espera obrigatória.",
+        dur: 17, block: true, deliveryPct: 0.09,
+        weight: 12
+      },
+      {
+        id: "licenca_operacional_vencida_trecho",
+        nome: "Licença operacional vencida do trecho",
+        emoji: "🧾",
+        desc: "Pendência administrativa gera taxa e liberação emergencial.",
+        dur: 10, deliveryPct: 0.21, fixed: 250, cashPct: 0.015,
+        weight: 5
+      }
+    ];
+
     const ACHIEVEMENTS = {
       first_delivery: { emoji: "🚂", label: "Primeira entrega", desc: "A operação começou a girar!" },
       deliveries_5:   { emoji: "📦", label: "Pegando ritmo", desc: "5 entregas concluídas." },
@@ -92,6 +296,7 @@
       trainProgress: 0,
       loanDebt: 0,
       maintenanceFines: 0,
+      incidentCosts: 0,
       elapsedMs: 0,
       preventRoundsLeft: 0,
       combo: 0,
@@ -204,12 +409,15 @@
               status: old?.status || "ok",
               repairLeft: old?.repairLeft || 0,
               repairTotal: old?.repairTotal || PAID_REPAIR_TIME,
-              by: old?.by || "paid"
+              by: old?.by || "paid",
+              incidentLabel: old?.incidentLabel || "",
+              incidentEmoji: old?.incidentEmoji || ""
             };
           })
         };
         if (!cargoById(merged.currentCargoId)) merged.currentCargoId = "graos";
         merged.maintenanceFines = Number(merged.maintenanceFines || 0);
+        merged.incidentCosts = Number(merged.incidentCosts || 0);
         merged.elapsedMs = Number(merged.elapsedMs || 0);
         merged.preventRoundsLeft = Number(merged.preventRoundsLeft || 0);
         return merged;
@@ -257,6 +465,68 @@
     function operatingCostEstimate() {
       return Math.round(state.deliveries * (70 + wagonCount() * 22) + (state.uptimeMs / 1000) * (0.8 + state.speedLevel * 0.18));
     }
+    function addIncidentCost(amount, reason = "", silent = false) {
+      amount = Math.max(0, Math.round(amount || 0));
+      if (!amount) return 0;
+      state.money -= amount;
+      state.incidentCosts = (state.incidentCosts || 0) + amount;
+      state.maintenanceFines = (state.maintenanceFines || 0) + amount;
+      if (!silent && reason) addLog(`${reason}: custo de ${formatCurrency(amount)}.`, "bad");
+      return amount;
+    }
+
+    function incidentBaseCost(def) {
+      const delivery = deliveryValue();
+      let cost = Number(def.fixed || 0);
+      cost += delivery * Number(def.deliveryPct || 0);
+      cost += wagonCount() * Number(def.perWagon || 0);
+      cost += state.speedLevel * Number(def.perSpeedLevel || 0);
+      cost += state.cargoLevel * Number(def.perCargoLevel || 0);
+      cost += state.deliveries * Number(def.perDelivery || 0);
+      cost += state.contractsDone * Number(def.perContract || 0);
+      cost += state.bestCombo * Number(def.perBestCombo || 0);
+      cost += Math.max(0, state.money) * Number(def.cashPct || 0);
+
+      if (def.preventPenalty) {
+        const lack = Math.max(0, 4 - state.preventLevel);
+        cost += delivery * lack * 0.045;
+      }
+
+      if (def.preventRelief && state.preventLevel > 0) {
+        cost *= Math.max(0.55, 1 - state.preventLevel * 0.055);
+      }
+
+      return Math.round(Math.max(0, cost));
+    }
+
+    function recurringIncidentCost(def, dt) {
+      if (!def) return 0;
+      let cost = 0;
+      cost += deliveryValue() * Number(def.recurringDeliveryPct || 0) * dt;
+      cost += wagonCount() * Number(def.recurringPerWagon || 0) * dt;
+      cost += Number(def.recurringFixed || 0) * dt;
+      cost += state.speedLevel * Number(def.recurringPerSpeedLevel || 0) * dt;
+      return cost;
+    }
+
+    function eligibleViaCostEvents() {
+      return VIA_COST_EVENTS.filter(def => {
+        if (def.minWagons && wagonCount() < def.minWagons) return false;
+        if (def.rare && Math.random() > 0.35) return false;
+        return true;
+      });
+    }
+
+    function weightedPick(items) {
+      const total = items.reduce((sum, item) => sum + Number(item.weight || 1), 0);
+      let pick = Math.random() * total;
+      for (const item of items) {
+        pick -= Number(item.weight || 1);
+        if (pick <= 0) return item;
+      }
+      return items[items.length - 1];
+    }
+
     function maintenanceCostEstimate() {
       const preventiveInvestment = state.preventLevel === 0 ? 0 : Math.round(1300 * (Math.pow(1.38, state.preventLevel) - 1) / 0.38);
       return Math.round(preventiveInvestment + state.deliveries * 30 + repairingCount() * 90 + (state.maintenanceFines || 0));
@@ -275,7 +545,8 @@
     function currentSpeed() {
       const base = 1 + (state.speedLevel - 1) * 0.22;
       const evMult = activeEvent?.def.speed || 1;
-      return Number((base * evMult).toFixed(2));
+      const incidentDrag = activeEvent?.def.operationalDrag ? Math.max(0.35, 1 - activeEvent.def.operationalDrag) : 1;
+      return Number((base * evMult * incidentDrag).toFixed(2));
     }
     function comboMult() { return 1 + Math.min(state.combo, 10) * 0.08; }
     function valueMult() { return activeEvent?.def.value || 1; }
@@ -599,7 +870,7 @@
 
     /* ============================ Marcadores de falha ============================ */
     function segmentSignature() {
-      return state.segments.map(s => `${s.id}:${s.status}:${s.by}`).join("|");
+      return state.segments.map(s => `${s.id}:${s.status}:${s.by}:${s.incidentLabel || ""}`).join("|");
     }
 
     function rebuildMarkers() {
@@ -624,7 +895,11 @@
         } else {
           const label = seg.by === "crew"
             ? "👷 " + info.name + " (equipe própria)"
-            : (seg.by === "outsourced" ? "🏗️ " + info.name + " (terceirizada)" : "👷 " + info.name + " em obra");
+            : (seg.by === "outsourced"
+              ? "🏗️ " + info.name + " (terceirizada)"
+              : (seg.by === "incident" || seg.by === "hold"
+                ? `${seg.incidentEmoji || "⚠️"} ${seg.incidentLabel || info.name}`
+                : "👷 " + info.name + " em obra"));
           marker.innerHTML = `
             <strong>${label}</strong>
             <small data-left>${Math.ceil(seg.repairLeft)}s restantes</small>
@@ -748,6 +1023,8 @@
       const segment = candidates[Math.floor(Math.random() * candidates.length)];
       segment.status = "broken";
       segment.repairLeft = 0;
+      segment.incidentLabel = "";
+      segment.incidentEmoji = "";
       addLog(`${SEGMENTS[segment.id].name} quebrou. O trem fica parado até a via ser liberada. Multa: 2% da entrega atual por segundo parado.`, "bad");
       if (state.combo > 0) addLog(`Sequência de ${state.combo}x perdida pela quebra.`, "bad");
       state.combo = 0;
@@ -792,8 +1069,7 @@
         return;
       }
       const fine = deliveryValue() * STOP_FINE_RATE * dt;
-      state.money -= fine;
-      state.maintenanceFines = (state.maintenanceFines || 0) + fine;
+      addIncidentCost(fine, "", true);
       maintenanceFineNotice += dt;
       if (maintenanceFineNotice >= 5) {
         maintenanceFineNotice = 0;
@@ -802,23 +1078,90 @@
     }
 
     /* ============================ Eventos e contratos ============================ */
+    function blockSegmentForIncident(def) {
+      const candidates = state.segments.filter(s => s.status === "ok");
+      if (!candidates.length) return false;
+      const segment = candidates[Math.floor(Math.random() * candidates.length)];
+      segment.status = "repairing";
+      segment.by = def.id === "cruzamento_outra_composicao" ? "hold" : "incident";
+      segment.repairTotal = Number(def.blockDur || def.dur || 12);
+      segment.repairLeft = segment.repairTotal;
+      segment.incidentLabel = def.nome;
+      segment.incidentEmoji = def.emoji;
+      return true;
+    }
+
+    function startViaCostEvent(def) {
+      const upfront = incidentBaseCost(def);
+      const cost = addIncidentCost(upfront, `${def.emoji} ${def.nome}`, false);
+      let blocked = false;
+
+      if (def.block) blocked = blockSegmentForIncident(def);
+
+      if (def.block && state.combo > 0) {
+        addLog(`Sequência de ${state.combo}x perdida por ocorrência de via.`, "bad");
+        state.combo = 0;
+      }
+
+      activeEvent = { def, left: Number(def.dur || 8), paid: cost, runningCost: 0, costNotice: 0 };
+      const impact = [
+        cost ? `custo inicial ${formatCurrency(cost)}` : "",
+        def.block && blocked ? "trecho bloqueado" : "",
+        def.speed ? `velocidade ${Math.round(def.speed * 100)}%` : "",
+        def.recurringDeliveryPct || def.recurringFixed || def.recurringPerWagon ? "custo recorrente ativo" : ""
+      ].filter(Boolean).join(" · ");
+
+      addLog(`${def.emoji} ${def.nome}: ${def.desc}${impact ? " — " + impact : ""}.`, "bad");
+      showToast(def.emoji, def.nome, impact || def.desc);
+      sfx(def.block ? "break" : "buy");
+    }
+
     function maybeStartEvent(dt) {
-      if (activeEvent) return;
+      if (activeEvent || hasAnyProblem()) return;
       eventCooldown -= dt;
       if (eventCooldown > 0) return;
+
+      // A maior parte dos eventos agora é custo de via; os eventos originais continuam
+      // existindo para variar ritmo, clima e mercado.
+      const useCostEvent = Math.random() < 0.78;
+      if (useCostEvent) {
+        const pool = eligibleViaCostEvents();
+        if (pool.length) {
+          startViaCostEvent(weightedPick(pool));
+          return;
+        }
+      }
+
       const def = EVENTS[Math.floor(Math.random() * EVENTS.length)];
-      activeEvent = { def, left: def.dur };
+      activeEvent = { def, left: def.dur, paid: 0, runningCost: 0, costNotice: 0 };
       addLog(`${def.emoji} ${def.nome}: ${def.desc}`, "event");
       showToast(def.emoji, def.nome, def.desc);
     }
+
     function tickEvent(dt) {
       if (!activeEvent) return;
+
+      const recurring = recurringIncidentCost(activeEvent.def, dt);
+      if (recurring > 0) {
+        const paid = addIncidentCost(recurring, "", true);
+        activeEvent.runningCost = (activeEvent.runningCost || 0) + paid;
+        activeEvent.costNotice = (activeEvent.costNotice || 0) + dt;
+        if (activeEvent.costNotice >= 6) {
+          activeEvent.costNotice = 0;
+          addLog(`${activeEvent.def.emoji} ${activeEvent.def.nome}: custo recorrente acumulado ${formatCurrency(activeEvent.runningCost)}.`, "bad");
+        }
+      }
+
       activeEvent.left -= dt;
       if (activeEvent.left <= 0) {
         if (activeEvent.def.id === "chuva") unlock("storm_survivor");
-        addLog(`Fim do evento: ${activeEvent.def.nome}.`, "event");
+        if (activeEvent.runningCost > 0) {
+          addLog(`Fim do evento: ${activeEvent.def.nome}. Custo recorrente total: ${formatCurrency(activeEvent.runningCost)}.`, "bad");
+        } else {
+          addLog(`Fim do evento: ${activeEvent.def.nome}.`, activeEvent.def.deliveryPct || activeEvent.def.block ? "bad" : "event");
+        }
         activeEvent = null;
-        eventCooldown = 22 + Math.random() * 20;
+        eventCooldown = 12 + Math.random() * 18;
       }
     }
 
@@ -849,7 +1192,9 @@
         contract = null;
         contractCooldown = 18 + Math.random() * 16;
       } else if (contract.left <= 0) {
-        addLog("⌛ Contrato expresso expirou. Sem penalidade — venha o próximo.", "bad");
+        const penalty = Math.round(contract.reward * 0.35);
+        addIncidentCost(penalty, "⌛ Penalidade por atraso no contrato expresso", false);
+        addLog(`Contrato expresso expirou. Penalidade aplicada: ${formatCurrency(penalty)}.`, "bad");
         contract = null;
         contractCooldown = 16 + Math.random() * 14;
       }
@@ -956,7 +1301,11 @@
         eventBannerEl.classList.add("show");
         evEmojiEl.textContent = activeEvent.def.emoji;
         evTitleEl.textContent = activeEvent.def.nome;
-        evDescEl.textContent = activeEvent.def.desc;
+        evDescEl.textContent = activeEvent.def.desc + (
+          activeEvent.paid || activeEvent.runningCost
+            ? ` · custo: ${formatCurrency((activeEvent.paid || 0) + (activeEvent.runningCost || 0))}`
+            : ""
+        );
         evTimerEl.textContent = Math.ceil(activeEvent.left) + "s";
       } else {
         eventBannerEl.classList.remove("show");
@@ -1011,8 +1360,11 @@
           if (segment.repairLeft <= 0) {
             segment.status = "ok";
             segment.repairLeft = 0;
+            const incidentName = segment.incidentLabel;
             segment.by = "paid";
-            addLog(`${SEGMENTS[segment.id].name} reparado e liberado.`, "good");
+            segment.incidentLabel = "";
+            segment.incidentEmoji = "";
+            addLog(incidentName ? `${incidentName} resolvido no ${SEGMENTS[segment.id].name}.` : `${SEGMENTS[segment.id].name} reparado e liberado.`, "good");
             sfx("repaired");
           }
         }

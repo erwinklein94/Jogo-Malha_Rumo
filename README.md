@@ -50,3 +50,36 @@ http://localhost:8000
 - Não precisa de Node, build, bundler ou dependências externas.
 - O progresso do jogo é salvo no `localStorage` do navegador.
 - O layout está otimizado para caber em uma tela no desktop e manter responsividade em telas menores.
+
+
+## Eventos de custo de via
+
+Esta versão inclui uma camada de ocorrências de via que geram custo ao jogador, como:
+
+- trilho empenado por calor;
+- lastro encharcado;
+- dormentes danificados;
+- furto de cabos de sinalização;
+- queda de barreira;
+- vegetação na faixa de domínio;
+- alagamento;
+- falha em chave/AMV;
+- passagem de nível bloqueada;
+- animal na via;
+- veículo obstruindo a linha;
+- sinal vermelho indevido;
+- inspeção obrigatória surpresa;
+- fiscalização com não conformidade;
+- restrição temporária de velocidade;
+- erosão;
+- ponte com limite de carga;
+- desalinhamento geométrico;
+- contaminação no leito da via;
+- pane no detector de roda quente;
+- interferência elétrica;
+- baixa aderência;
+- descarrilamento leve;
+- cruzamento com outra composição;
+- licença operacional vencida.
+
+Os eventos podem gerar custo imediato, custo recorrente por segundo, redução de velocidade, bloqueio de trecho e perda de sequência. Contratos expirados agora também geram penalidade financeira.
