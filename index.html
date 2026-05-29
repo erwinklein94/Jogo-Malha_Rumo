@@ -87,7 +87,7 @@
     }
 
     .header-shell {
-      max-width: 1200px;
+      max-width: 1380px;
       margin: 0 auto;
       display: grid;
       gap: 14px;
@@ -190,7 +190,7 @@
     }
 
     main {
-      max-width: 1200px;
+      max-width: 1380px;
       margin: 0 auto;
       padding: 28px 18px 42px;
     }
@@ -234,8 +234,8 @@
     }
 
     .dot {
-      width: 10px;
-      height: 10px;
+      width: 8px;
+      height: 8px;
       border-radius: 999px;
       background: var(--ok);
       box-shadow: 0 0 0 5px rgba(30, 159, 127, .14);
@@ -246,7 +246,7 @@
 
     .layout {
       display: grid;
-      grid-template-columns: 1.5fr .9fr;
+      grid-template-columns: 1.75fr .85fr;
       gap: 18px;
       align-items: stretch;
     }
@@ -296,21 +296,21 @@
 
     .rail-area {
       position: relative;
-      height: min(62vh, 560px);
-      min-height: 440px;
+      height: min(56vh, 500px);
+      min-height: 400px;
       background:
         radial-gradient(circle at 50% 35%, rgba(50, 166, 230, .16), transparent 28rem),
         linear-gradient(rgba(0, 56, 101, .04) 1px, transparent 1px),
         linear-gradient(90deg, rgba(0, 56, 101, .04) 1px, transparent 1px),
         linear-gradient(180deg, #FFFFFF, #F2F5F6);
-      background-size: auto, 32px 32px, 32px 32px, auto;
+      background-size: auto, 36px 36px, 36px 36px, auto;
       overflow: hidden;
     }
 
     .rail-area::before {
       content: "";
       position: absolute;
-      inset: 22px;
+      inset: 18px 16px;
       border: 1px dashed rgba(0, 56, 101, .13);
       border-radius: 24px;
       clip-path: polygon(0 0, calc(100% - 28px) 0, 100% 28px, 100% 100%, 0 100%);
@@ -319,15 +319,15 @@
 
     .landmark {
       position: absolute;
-      top: 52%;
+      top: 50%;
       transform: translate(-50%, -50%);
-      width: 82px;
-      height: 82px;
+      width: 74px;
+      height: 74px;
       border-radius: 18px;
       display: grid;
       place-items: center;
       font-weight: 900;
-      font-size: 1.7rem;
+      font-size: 1.45rem;
       letter-spacing: .02em;
       color: #FFFFFF;
       box-shadow: var(--rumo-sombra-hover);
@@ -335,19 +335,19 @@
       clip-path: polygon(0 0, calc(100% - 18px) 0, 100% 18px, 100% 100%, 0 100%);
     }
 
-    .landmark.a { left: 8%; background: linear-gradient(135deg, var(--rumo-azul), var(--rumo-azul-claro)); }
-    .landmark.b { left: 92%; background: linear-gradient(135deg, var(--rumo-verde), var(--rumo-verde-claro)); color: #003865; }
+    .landmark.a { left: 6%; background: linear-gradient(135deg, var(--rumo-azul), var(--rumo-azul-claro)); }
+    .landmark.b { left: 94%; background: linear-gradient(135deg, var(--rumo-verde), var(--rumo-verde-claro)); color: #003865; }
 
     .landmark-label {
       position: absolute;
-      top: calc(52% + 52px);
+      top: calc(50% + 50px);
       transform: translateX(-50%);
       color: var(--rumo-texto);
       font-size: .88rem;
       font-weight: 800;
     }
-    .landmark-label.a { left: 8%; }
-    .landmark-label.b { left: 92%; }
+    .landmark-label.a { left: 6%; }
+    .landmark-label.b { left: 94%; }
 
     svg.rail-svg {
       position: absolute;
@@ -359,21 +359,21 @@
 
     .rail-base {
       stroke: rgba(0, 56, 101, .62);
-      stroke-width: 16;
+      stroke-width: 18;
       stroke-linecap: round;
       filter: drop-shadow(0 12px 10px rgba(0, 56, 101, .18));
     }
 
     .rail-inner {
       stroke: rgba(255, 255, 255, .88);
-      stroke-width: 5;
+      stroke-width: 6;
       stroke-linecap: round;
-      stroke-dasharray: 20 13;
+      stroke-dasharray: 24 12;
     }
 
     .segment {
       stroke: transparent;
-      stroke-width: 28;
+      stroke-width: 30;
       stroke-linecap: round;
       pointer-events: stroke;
       cursor: pointer;
@@ -400,7 +400,7 @@
     .break-marker {
       position: absolute;
       z-index: 7;
-      min-width: 150px;
+      min-width: 160px;
       transform: translate(-50%, -50%);
       border: 1px solid rgba(216, 69, 69, .42);
       background: #FFFFFF;
@@ -461,94 +461,77 @@
 
     .train {
       position: absolute;
-      left: 8%;
-      top: 52%;
+      left: 6%;
+      top: 50%;
       z-index: 10;
       transform: translate(-50%, -50%);
       display: flex;
       align-items: center;
-      gap: 5px;
+      gap: 4px;
       filter: drop-shadow(0 14px 12px rgba(0, 56, 101, .28));
     }
 
     .engine {
       position: relative;
-      width: 62px;
-      height: 34px;
-      border-radius: 8px 16px 8px 8px;
-      background: linear-gradient(135deg, var(--rumo-azul), var(--rumo-azul-claro));
+      width: 42px;
+      height: 24px;
+      border-radius: 9px;
+      background: linear-gradient(180deg, var(--rumo-azul-claro), var(--rumo-azul));
       border: 2px solid rgba(255,255,255,.8);
-      clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 0 100%);
+      clip-path: polygon(0 0, calc(100% - 6px) 0, 100% 6px, 100% 100%, 0 100%);
     }
 
     .engine::before {
       content: "";
       position: absolute;
-      left: 9px;
-      top: -16px;
-      width: 30px;
-      height: 20px;
-      border-radius: 8px 8px 0 0;
-      background: linear-gradient(135deg, var(--rumo-verde), var(--rumo-verde-claro));
-      border: 2px solid rgba(255,255,255,.8);
-      border-bottom: 0;
+      left: 8px;
+      top: 5px;
+      width: 18px;
+      height: 8px;
+      border-radius: 5px;
+      background: linear-gradient(180deg, var(--rumo-verde-claro), var(--rumo-verde));
+      border: 1px solid rgba(255,255,255,.8);
+      border-bottom: 1px solid rgba(255,255,255,.8);
     }
 
     .engine::after {
       content: "";
       position: absolute;
-      right: 6px;
-      top: 7px;
-      width: 13px;
-      height: 10px;
-      border-radius: 4px;
-      background: #FFFFFF;
-      box-shadow: -23px -18px 0 -3px rgba(255,255,255,.78);
+      right: 5px;
+      top: 6px;
+      width: 8px;
+      height: 12px;
+      border-radius: 3px;
+      background: rgba(255,255,255,.85);
+      box-shadow: -18px 0 0 -2px rgba(255,255,255,.5);
     }
 
     .wagon {
-      width: 42px;
-      height: 28px;
-      border-radius: 8px;
-      background: linear-gradient(135deg, var(--rumo-amarelo), var(--rumo-laranja));
+      width: 28px;
+      height: 20px;
+      border-radius: 7px;
+      background: linear-gradient(180deg, var(--rumo-amarelo), var(--rumo-laranja));
       border: 2px solid rgba(255,255,255,.88);
-      clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 0 100%);
+      clip-path: polygon(0 0, calc(100% - 6px) 0, 100% 6px, 100% 100%, 0 100%);
     }
 
     .wheel-row {
       position: absolute;
-      inset: auto 0 -8px 0;
+      inset: auto 3px -7px 3px;
       display: flex;
       justify-content: space-around;
       pointer-events: none;
     }
 
     .wheel {
-      width: 10px;
-      height: 10px;
+      width: 8px;
+      height: 8px;
       border-radius: 50%;
       background: var(--rumo-azul);
       border: 2px solid #FFFFFF;
     }
 
-    .smoke {
-      position: absolute;
-      left: 12px;
-      top: -38px;
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-      background: rgba(189, 204, 212, .76);
-      animation: smoke 1.4s ease-out infinite;
-    }
-
-    .smoke:nth-child(2) { animation-delay: .38s; left: 24px; }
-    .smoke:nth-child(3) { animation-delay: .76s; left: 34px; }
-
-    @keyframes smoke {
-      0% { transform: translate(0, 0) scale(.6); opacity: .7; }
-      100% { transform: translate(12px, -30px) scale(1.8); opacity: 0; }
-    }
+    .smoke { display: none; }
 
     .side-content { display: grid; gap: 18px; }
     .section-body { padding: 16px 18px 18px; }
@@ -669,9 +652,9 @@
       .hud { grid-template-columns: 1fr; gap: 8px; }
       .title-row { flex-direction: column; }
       .status-pill { width: 100%; justify-content: center; }
-      .rail-area { min-height: 410px; height: 410px; }
-      .landmark { width: 56px; height: 56px; border-radius: 14px; font-size: 1.2rem; }
-      .train { scale: .72; transform-origin: center; }
+      .rail-area { min-height: 380px; height: 380px; }
+      .landmark { width: 50px; height: 50px; border-radius: 12px; font-size: 1.1rem; }
+      .train { scale: .82; transform-origin: center; }
       .break-marker { min-width: 128px; font-size: .85rem; }
       .footer-actions { grid-template-columns: 1fr; }
     }
@@ -738,13 +721,13 @@
 
         <div class="rail-area" id="railArea">
           <svg class="rail-svg" viewBox="0 0 1000 500" preserveAspectRatio="none" aria-hidden="true">
-            <path class="rail-base" d="M80,260 C220,160 330,355 470,260 S735,165 920,260" fill="none" />
-            <path class="rail-inner" d="M80,260 C220,160 330,355 470,260 S735,165 920,260" fill="none" />
-            <path id="seg-0" class="segment" d="M80,260 C145,213 194,197 245,219" fill="none" />
-            <path id="seg-1" class="segment" d="M245,219 C318,252 354,331 426,286" fill="none" />
-            <path id="seg-2" class="segment" d="M426,286 C514,231 557,211 635,238" fill="none" />
-            <path id="seg-3" class="segment" d="M635,238 C711,264 742,318 821,292" fill="none" />
-            <path id="seg-4" class="segment" d="M821,292 C860,279 886,262 920,260" fill="none" />
+            <path class="rail-base" d="M55,250 C180,250 235,205 330,205 S510,285 620,285 790,220 945,220" fill="none" />
+            <path class="rail-inner" d="M55,250 C180,250 235,205 330,205 S510,285 620,285 790,220 945,220" fill="none" />
+            <path id="seg-0" class="segment" d="M55,250 C120,250 168,238 218,224" fill="none" />
+            <path id="seg-1" class="segment" d="M218,224 C262,211 296,205 330,205" fill="none" />
+            <path id="seg-2" class="segment" d="M330,205 C414,205 463,285 548,285" fill="none" />
+            <path id="seg-3" class="segment" d="M548,285 C602,285 658,257 715,238" fill="none" />
+            <path id="seg-4" class="segment" d="M715,238 C786,214 856,220 945,220" fill="none" />
           </svg>
 
           <div class="landmark a">A</div>
@@ -752,10 +735,8 @@
           <div class="landmark-label a">Terminal de origem</div>
           <div class="landmark-label b">Terminal de destino</div>
 
-          <div class="train" id="train" aria-label="Locomotiva puxando vagões">
-            <span class="smoke"></span><span class="smoke"></span><span class="smoke"></span>
+          <div class="train" id="train" aria-label="Locomotiva puxando vagões em vista superior">
             <div class="engine"><div class="wheel-row"><span class="wheel"></span><span class="wheel"></span></div></div>
-            <div class="wagon"><div class="wheel-row"><span class="wheel"></span><span class="wheel"></span></div></div>
             <div class="wagon"><div class="wheel-row"><span class="wheel"></span><span class="wheel"></span></div></div>
             <div class="wagon"><div class="wheel-row"><span class="wheel"></span><span class="wheel"></span></div></div>
           </div>
@@ -812,11 +793,11 @@
     const STORAGE_KEY = "ferrovia-manager-save-v1";
     const REPAIR_TIME = 30; // segundos
     const SEGMENTS = [
-      { id: 0, name: "Trecho 1", x: 18, y: 43 },
-      { id: 1, name: "Trecho 2", x: 34, y: 58 },
-      { id: 2, name: "Trecho 3", x: 53, y: 48 },
-      { id: 3, name: "Trecho 4", x: 72, y: 56 },
-      { id: 4, name: "Trecho 5", x: 85, y: 50 }
+      { id: 0, name: "Trecho 1", x: 20, y: 45 },
+      { id: 1, name: "Trecho 2", x: 33, y: 41 },
+      { id: 2, name: "Trecho 3", x: 50, y: 56 },
+      { id: 3, name: "Trecho 4", x: 68, y: 51 },
+      { id: 4, name: "Trecho 5", x: 86, y: 46 }
     ];
 
     const defaultState = {
@@ -972,9 +953,6 @@
         railAreaEl.appendChild(marker);
       });
 
-      document.querySelectorAll("[data-repair]").forEach(button => {
-        button.addEventListener("click", () => dispatchRepair(Number(button.dataset.repair)));
-      });
     }
 
     function render() {
@@ -1023,12 +1001,12 @@
     function updateTrainPosition() {
       // Aproximação visual da curva: calcula left/top por pontos-chave.
       const points = [
-        { p: 0, x: 8, y: 52 },
-        { p: 20, x: 22, y: 43 },
-        { p: 38, x: 39, y: 59 },
-        { p: 56, x: 55, y: 47 },
-        { p: 74, x: 72, y: 55 },
-        { p: 100, x: 92, y: 52 }
+        { p: 0, x: 6, y: 50 },
+        { p: 18, x: 20, y: 45 },
+        { p: 32, x: 33, y: 41 },
+        { p: 58, x: 50, y: 56 },
+        { p: 76, x: 68, y: 51 },
+        { p: 100, x: 94, y: 46 }
       ];
 
       const progress = Math.max(0, Math.min(100, state.trainProgress));
@@ -1159,8 +1137,17 @@
     saveButton.addEventListener("click", () => saveState(true));
     resetButton.addEventListener("click", resetGame);
 
+    railAreaEl.addEventListener("pointerdown", (event) => {
+      const repairButton = event.target.closest("[data-repair]");
+      if (!repairButton || repairButton.disabled) return;
+
+      event.preventDefault();
+      dispatchRepair(Number(repairButton.dataset.repair));
+    });
+
     document.querySelectorAll(".segment").forEach(path => {
-      path.addEventListener("click", () => {
+      path.addEventListener("pointerdown", (event) => {
+        event.preventDefault();
         const id = Number(path.id.replace("seg-", ""));
         const segment = state.segments.find(s => s.id === id);
         if (segment?.status === "broken") dispatchRepair(id);
