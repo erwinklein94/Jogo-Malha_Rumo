@@ -436,6 +436,7 @@
       achievements: {},
       investments: {},
       soundOn: true,
+      theme: "light",
       lastSavedAt: Date.now()
     };
 
@@ -489,6 +490,7 @@
     const saveButton = $("#saveButton");
     const resetButton = $("#resetButton");
     const soundToggle = $("#soundToggle");
+    const themeToggle = $("#themeToggle");
 
     const speedLvlEl = $("#speedLvl");
     const cargoLvlEl = $("#cargoLvl");
@@ -998,6 +1000,19 @@
         case "click":    tone(360, .05, "square", .04); break;
       }
     }
+
+    function applyTheme() {
+      const theme = state.theme === "dark" ? "dark" : "light";
+      document.documentElement.dataset.theme = theme;
+      if (themeToggle) themeToggle.textContent = theme === "dark" ? "☀️ Claro" : "🌙 Escuro";
+    }
+
+    function toggleTheme() {
+      state.theme = state.theme === "dark" ? "light" : "dark";
+      applyTheme();
+      saveState(false);
+    }
+
     function updateSoundButton() {
       soundToggle.textContent = state.soundOn ? "🔊 Som" : "🔇 Som";
       soundToggle.setAttribute("aria-pressed", String(state.soundOn));
@@ -1741,6 +1756,7 @@
     }
 
     /* ============================ Eventos de UI ============================ */
+    themeToggle?.addEventListener("click", toggleTheme);
     advancedInvestBtn?.addEventListener("click", openInvestmentModal);
     closeInvestmentsBtn?.addEventListener("click", closeInvestmentModal);
     investmentModalEl?.addEventListener("click", (event) => {
@@ -1802,6 +1818,7 @@
 
     /* ============================ Inicialização ============================ */
     function init() {
+      applyTheme();
       updateSoundButton();
       buildTrackDecor();
       computeSegmentMidpoints();

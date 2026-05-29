@@ -110,3 +110,16 @@ Os investimentos afetam diretamente:
 - valor da entrega;
 - bônus de contratos expressos;
 - risco de operar com muitos vagões.
+
+
+## Cockpit UX v2
+
+A interface foi reformulada para priorizar o que importa no jogo:
+
+- ferrovia e trem no centro da tela;
+- indicadores principais em uma faixa compacta;
+- evento operacional sempre visível;
+- investimentos rápidos abaixo da simulação;
+- estatísticas e custos no rodapé;
+- botão de investimentos avançados em modal;
+- alternância entre tema claro e tema escuro.

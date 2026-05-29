@@ -2136,3 +2136,525 @@
   }
 }
 
+
+
+/* ==========================================================================
+   Cockpit UX v2 — foco total na dinâmica do trem + tema escuro
+   ========================================================================== */
+html {
+  color-scheme: light;
+}
+
+html[data-theme="dark"] {
+  color-scheme: dark;
+}
+
+body {
+  min-height: 100vh;
+}
+
+.game-shell {
+  width: 100%;
+  height: 100vh;
+  min-height: 0;
+  padding: 10px;
+  display: grid;
+  grid-template-rows: auto auto minmax(260px, 1fr) auto auto;
+  gap: 8px;
+  overflow: hidden;
+}
+
+.game-topbar {
+  display: grid;
+  grid-template-columns: auto minmax(160px, 1fr) auto;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 10px;
+  border-radius: 18px;
+  background: linear-gradient(135deg, rgba(0,56,101,.98), rgba(0,43,77,.96) 55%, rgba(30,159,127,.94));
+  border: 1px solid rgba(255,255,255,.14);
+  border-bottom: 3px solid var(--rumo-verde-claro);
+  box-shadow: 0 16px 36px rgba(0,56,101,.18);
+}
+
+.game-title {
+  min-width: 0;
+  color: #FFFFFF;
+  display: grid;
+  gap: 1px;
+}
+
+.game-title strong {
+  font-size: .96rem;
+  line-height: 1;
+  text-transform: uppercase;
+  letter-spacing: .02em;
+}
+
+.game-title small {
+  font-size: .7rem;
+  opacity: .75;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.command-strip {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(300px, 460px);
+  gap: 8px;
+  min-height: 0;
+}
+
+.kpi-row {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.kpi-card {
+  padding: 8px 10px;
+  border-radius: 14px;
+  background: rgba(255,255,255,.92);
+  border: 1px solid var(--rumo-cinza-200);
+  box-shadow: 0 10px 28px rgba(0,56,101,.10);
+  clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 0 100%);
+}
+
+.kpi-card small {
+  display: block;
+  margin-bottom: 2px;
+  color: var(--rumo-texto-claro);
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  font-size: .62rem;
+}
+
+.kpi-card strong {
+  display: block;
+  color: var(--rumo-azul);
+  font-size: .98rem;
+  line-height: 1.1;
+  font-variant-numeric: tabular-nums;
+}
+
+.kpi-card.money strong,
+.kpi-card.combo strong {
+  color: var(--rumo-verde);
+}
+
+.playfield-card {
+  min-height: 0;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  overflow: hidden;
+}
+
+.playfield-header {
+  min-height: 0;
+  padding: 8px 11px;
+}
+
+.playfield-header h2 {
+  font-size: .92rem;
+}
+
+.playfield-header span {
+  font-size: .72rem;
+}
+
+.playfield-card .rail-area {
+  height: 100% !important;
+  min-height: 220px !important;
+  background:
+    radial-gradient(circle at 48% 42%, rgba(50,166,230,.20), transparent 24rem),
+    radial-gradient(circle at 82% 30%, rgba(127,224,108,.13), transparent 18rem),
+    linear-gradient(rgba(0,56,101,.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,56,101,.045) 1px, transparent 1px),
+    linear-gradient(180deg, #FFFFFF, #EDF4F7) !important;
+  background-size: auto, auto, 30px 30px, 30px 30px, auto !important;
+}
+
+.playfield-card svg.rail-svg {
+  z-index: 2;
+}
+
+.playfield-card .ballast {
+  stroke: rgba(0,56,101,.25) !important;
+  stroke-width: 22 !important;
+}
+
+.playfield-card .tie {
+  stroke: rgba(0,56,101,.48) !important;
+  stroke-width: 3.5 !important;
+}
+
+.playfield-card .steel-rail {
+  stroke: #244E66 !important;
+  stroke-width: 2.9 !important;
+}
+
+.playfield-card .steel-rail.hl {
+  stroke: rgba(255,255,255,.75) !important;
+}
+
+.playfield-card .train-layer {
+  z-index: 12;
+  --car-scale: .74;
+}
+
+.operations-dock {
+  min-height: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(240px, 340px);
+  gap: 8px;
+  padding: 8px;
+  overflow: hidden;
+}
+
+.operations-dock .investment-panel {
+  padding: 0 !important;
+  border: 0 !important;
+  background: transparent !important;
+}
+
+.operations-dock .mini-heading {
+  margin-bottom: 6px;
+}
+
+.operations-dock .mini-heading strong {
+  font-size: .78rem;
+}
+
+.operations-dock .mini-heading span {
+  font-size: .64rem;
+}
+
+.operations-dock .controls {
+  grid-template-columns: repeat(6, minmax(82px, 1fr));
+  gap: 6px;
+}
+
+.operations-dock .upgrade {
+  min-height: 72px;
+  padding: 7px;
+}
+
+.operations-dock .upgrade-head {
+  gap: 5px;
+  margin-bottom: 4px;
+}
+
+.operations-dock .upgrade-ico {
+  width: 22px;
+  height: 22px;
+  font-size: .78rem;
+}
+
+.operations-dock .upgrade h3 {
+  font-size: .64rem;
+  line-height: 1.05;
+}
+
+.operations-dock .upgrade .lvl {
+  font-size: .52rem;
+}
+
+.operations-dock .upgrade p {
+  display: none;
+}
+
+.operations-dock button.action {
+  padding: 5px 6px;
+  min-height: 24px;
+  font-size: .58rem;
+}
+
+.operations-dock .contract {
+  margin: 0;
+  border: 1px solid var(--rumo-cinza-200);
+  border-radius: 15px;
+  padding: 9px 10px;
+  min-height: 72px;
+  align-self: stretch;
+}
+
+.dashboard-bottom {
+  min-height: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1.12fr) minmax(340px, .88fr);
+  gap: 8px;
+}
+
+.dashboard-bottom .costs-panel {
+  padding: 8px;
+  border: 1px solid var(--rumo-cinza-200);
+  border-radius: 16px;
+  background: rgba(255,255,255,.92);
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  align-items: stretch;
+}
+
+.dashboard-bottom .cost-card {
+  min-height: 46px;
+  padding: 6px 8px;
+}
+
+.dashboard-bottom .cost-card .cost-ico {
+  width: 22px;
+  height: 22px;
+}
+
+.dashboard-bottom .cost-card small {
+  font-size: .55rem;
+}
+
+.dashboard-bottom .cost-card strong {
+  font-size: .7rem;
+}
+
+.stats-card {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  overflow: hidden;
+}
+
+.stats-card .card-header {
+  padding: 7px 9px;
+}
+
+.stats-body {
+  padding: 7px 9px 8px !important;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 8px;
+  align-items: center;
+}
+
+.stats-card .stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 6px;
+}
+
+.stats-card .stat-cell {
+  min-height: 42px;
+  padding: 6px 7px;
+  border-radius: 10px;
+}
+
+.stats-card .stat-cell small {
+  font-size: .5rem;
+  margin-bottom: 1px;
+}
+
+.stats-card .stat-cell strong {
+  font-size: .72rem;
+}
+
+.stats-card .compact-actions {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 6px;
+  min-width: 96px;
+  margin: 0 !important;
+}
+
+.stats-card .compact-actions .action {
+  min-height: 26px;
+  padding: 5px 9px;
+  font-size: .62rem;
+}
+
+.help {
+  display: none !important;
+}
+
+.compact-hud,
+.side-content,
+header {
+  display: none !important;
+}
+
+/* Tema escuro */
+html[data-theme="dark"] body {
+  color: #EAF6FF;
+  background:
+    radial-gradient(circle at 12% 0%, rgba(50,166,230,.18), transparent 26rem),
+    radial-gradient(circle at 88% 10%, rgba(127,224,108,.10), transparent 28rem),
+    linear-gradient(180deg, #07131D 0%, #091A25 48%, #06111A 100%) !important;
+}
+
+html[data-theme="dark"] body::before {
+  opacity: .22;
+}
+
+html[data-theme="dark"] .game-topbar {
+  background: linear-gradient(135deg, rgba(0,36,61,.98), rgba(7,19,29,.98) 60%, rgba(17,92,81,.94));
+  box-shadow: 0 18px 46px rgba(0,0,0,.32);
+}
+
+html[data-theme="dark"] .card,
+html[data-theme="dark"] .kpi-card,
+html[data-theme="dark"] .dashboard-bottom .costs-panel,
+html[data-theme="dark"] .cost-card,
+html[data-theme="dark"] .stat-cell,
+html[data-theme="dark"] .upgrade,
+html[data-theme="dark"] .investment-modal__panel {
+  background: rgba(12, 31, 44, .94) !important;
+  border-color: rgba(93, 133, 154, .30) !important;
+  color: #EAF6FF !important;
+  box-shadow: 0 18px 48px rgba(0,0,0,.28) !important;
+}
+
+html[data-theme="dark"] .card-header,
+html[data-theme="dark"] .investment-panel,
+html[data-theme="dark"] .contract,
+html[data-theme="dark"] .event-banner,
+html[data-theme="dark"] .investment-summary,
+html[data-theme="dark"] .investment-tabs {
+  background: linear-gradient(180deg, rgba(18,43,58,.96), rgba(10,25,36,.92)) !important;
+  border-color: rgba(93, 133, 154, .30) !important;
+}
+
+html[data-theme="dark"] h1,
+html[data-theme="dark"] h2,
+html[data-theme="dark"] h3,
+html[data-theme="dark"] .kpi-card strong,
+html[data-theme="dark"] .stat-cell strong,
+html[data-theme="dark"] .cost-card strong,
+html[data-theme="dark"] .card-header h2,
+html[data-theme="dark"] .cargo-badge,
+html[data-theme="dark"] .mini-heading strong {
+  color: #EAF6FF !important;
+}
+
+html[data-theme="dark"] small,
+html[data-theme="dark"] .card-header span,
+html[data-theme="dark"] .subtitle,
+html[data-theme="dark"] .upgrade p,
+html[data-theme="dark"] .event-banner .ev-body span,
+html[data-theme="dark"] .contract .ct-body span,
+html[data-theme="dark"] .investment-card p {
+  color: #9DB7C7 !important;
+}
+
+html[data-theme="dark"] .playfield-card .rail-area {
+  background:
+    radial-gradient(circle at 48% 42%, rgba(50,166,230,.18), transparent 24rem),
+    radial-gradient(circle at 82% 30%, rgba(127,224,108,.10), transparent 18rem),
+    linear-gradient(rgba(255,255,255,.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.045) 1px, transparent 1px),
+    linear-gradient(180deg, #0A1B27, #07131D) !important;
+}
+
+html[data-theme="dark"] .playfield-card .ballast {
+  stroke: rgba(145, 190, 212, .24) !important;
+}
+
+html[data-theme="dark"] .playfield-card .tie {
+  stroke: rgba(192, 224, 238, .45) !important;
+}
+
+html[data-theme="dark"] .playfield-card .steel-rail {
+  stroke: #B4D8E8 !important;
+}
+
+html[data-theme="dark"] button.action:not(.danger),
+html[data-theme="dark"] .icon-toggle,
+html[data-theme="dark"] .advanced-invest-open,
+html[data-theme="dark"] .investment-tab.active {
+  box-shadow: 0 12px 28px rgba(0,0,0,.24) !important;
+}
+
+html[data-theme="dark"] .investment-card.maxed {
+  background: linear-gradient(180deg, rgba(12,31,44,.96), rgba(30,159,127,.13)) !important;
+}
+
+/* Responsivo */
+@media (max-width: 980px) {
+  body {
+    overflow-y: auto !important;
+  }
+
+  .game-shell {
+    height: auto;
+    min-height: 100vh;
+    overflow: visible;
+    grid-template-rows: auto auto auto auto auto;
+    padding: 8px;
+  }
+
+  .game-topbar,
+  .command-strip,
+  .operations-dock,
+  .dashboard-bottom,
+  .stats-body {
+    grid-template-columns: 1fr;
+  }
+
+  .kpi-row {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .operations-dock .controls,
+  .dashboard-bottom .costs-panel,
+  .stats-card .stats-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .playfield-card .rail-area {
+    height: 360px !important;
+    min-height: 360px !important;
+  }
+
+  .stats-card .compact-actions {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (min-width: 981px) and (max-height: 760px) {
+  .game-shell {
+    padding: 7px;
+    gap: 6px;
+    grid-template-rows: auto auto minmax(230px, 1fr) auto auto;
+  }
+
+  .game-topbar {
+    padding: 6px 8px;
+  }
+
+  .kpi-card {
+    padding: 6px 8px;
+  }
+
+  .kpi-card strong {
+    font-size: .84rem;
+  }
+
+  .playfield-card .rail-area {
+    min-height: 190px !important;
+  }
+
+  .operations-dock {
+    padding: 6px;
+  }
+
+  .operations-dock .upgrade {
+    min-height: 62px;
+    padding: 5px;
+  }
+
+  .dashboard-bottom .cost-card,
+  .stats-card .stat-cell {
+    min-height: 36px;
+  }
+}
+

@@ -14,147 +14,56 @@
   <link rel="stylesheet" href="assets/css/styles.css" />
 </head>
 <body>
-  <header>
-    <div class="header-shell">
-      <div class="brand-top">
-        <div class="brand-lockup">
-          <a class="rumo-logo" href="./" aria-label="Rumo - início">rumo<span aria-hidden="true"></span></a>
-          <div class="brand-title">
-            <strong>Ferrovia Manager</strong>
-            <span>Gestão de operação ferroviária</span>
-          </div>
-        </div>
-        <div class="header-actions">
-          <button class="icon-toggle" id="soundToggle" aria-pressed="true" title="Ligar/desligar sons">🔊 Som</button>
-          <div class="brand-chip">Brasil em movimento</div>
-        </div>
-      </div>
-
-      <div class="hud" aria-label="Painel superior do jogo">
-        <div class="stat">
-          <small>Dinheiro</small>
-          <strong id="money">R$ 0</strong>
-        </div>
-        <div class="stat">
-          <small>Velocidade da locomotiva</small>
-          <strong id="speedInfo">0x</strong>
-        </div>
-        <div class="stat">
-          <small>Valor base da carga</small>
-          <strong id="cargoInfo">R$ 0</strong>
-        </div>
-        <div class="stat combo">
-          <small>Sequência de entregas</small>
-          <strong id="comboInfo">0x · 1.00</strong>
-        </div>
-      </div>
-    </div>
-  </header>
-
-  <main>
+  <main class="game-shell">
     <div class="sr-status" hidden aria-hidden="true">
       <span class="dot" id="statusDot"></span>
       <span id="statusText">Linha operacional</span>
     </div>
 
-    <div class="event-banner" id="eventBanner" aria-live="polite">
-      <span class="ev-emoji" id="evEmoji">🌧️</span>
-      <div class="ev-body">
-        <strong id="evTitle">Evento</strong>
-        <span id="evDesc">Descrição</span>
+    <section class="game-topbar" aria-label="Barra principal do jogo">
+      <a class="rumo-logo" href="./" aria-label="Rumo - início">rumo<span aria-hidden="true"></span></a>
+      <div class="game-title">
+        <strong>Ferrovia Manager</strong>
+        <small>Gestão de malha ferroviária</small>
       </div>
-      <span class="ev-timer" id="evTimer">0s</span>
-    </div>
+      <div class="topbar-actions">
+        <button class="icon-toggle" id="themeToggle" type="button" title="Alternar tema">🌙 Escuro</button>
+        <button class="icon-toggle" id="soundToggle" aria-pressed="true" title="Ligar/desligar sons">🔊 Som</button>
+        <button class="advanced-invest-open" id="advancedInvestBtn" type="button">Mais investimentos</button>
+      </div>
+    </section>
 
-    <section class="layout">
-      <article class="card rail-card">
-        <div class="card-header rail-card__header">
-          <div>
-            <h2>Linha ferroviária</h2>
-            <span id="nextBreakInfo">Próxima falha em breve...</span>
-          </div>
-          <span class="cargo-badge" id="cargoBadge"><span id="cargoEmoji">🌾</span> <b id="cargoName">Grãos</b> <span class="mult" id="cargoMult">×1.0</span></span>
+    <section class="command-strip" aria-label="Resumo e eventos da operação">
+      <div class="kpi-row" aria-label="Indicadores principais">
+        <div class="kpi-card money"><small>Dinheiro</small><strong id="money">R$ 0</strong></div>
+        <div class="kpi-card"><small>Velocidade</small><strong id="speedInfo">0x</strong></div>
+        <div class="kpi-card"><small>Carga base</small><strong id="cargoInfo">R$ 0</strong></div>
+        <div class="kpi-card combo"><small>Sequência</small><strong id="comboInfo">0x · 1.00</strong></div>
+      </div>
+
+      <div class="event-banner" id="eventBanner" aria-live="polite">
+        <span class="ev-emoji" id="evEmoji">🌧️</span>
+        <div class="ev-body">
+          <strong id="evTitle">Evento</strong>
+          <span id="evDesc">Descrição</span>
         </div>
+        <span class="ev-timer" id="evTimer">0s</span>
+      </div>
+    </section>
 
-        <div class="compact-hud" aria-label="Resumo compacto da operação">
-          <div class="compact-stat"><small>Dinheiro</small><strong id="moneyMini">R$ 0</strong></div>
-          <div class="compact-stat"><small>Velocidade</small><strong id="speedMini">0x</strong></div>
-          <div class="compact-stat"><small>Carga base</small><strong id="cargoMini">R$ 0</strong></div>
-          <div class="compact-stat"><small>Sequência</small><strong id="comboMini">0x</strong></div>
+    <section class="card playfield-card" aria-label="Dinâmica principal do trem">
+      <div class="card-header playfield-header">
+        <div>
+          <h2>Linha ferroviária</h2>
+          <span id="nextBreakInfo">Próxima falha em breve...</span>
         </div>
-
-        <div class="investment-panel" aria-label="Centro de operações e investimentos">
-          <div class="mini-heading">
-            <strong>Centro de operações · Investimentos</strong>
-            <span>Invista acima da dinâmica do trem</span>
-            <button class="advanced-invest-open" id="advancedInvestBtn" type="button">Mais investimentos</button>
-          </div>
-          <div class="section-body controls">
-            <div class="upgrade">
-              <div class="upgrade-head">
-                <span class="upgrade-ico">⚡</span>
-                <h3>Aumentar velocidade</h3>
-                <span class="lvl" id="speedLvl">nível 1</span>
-              </div>
-              <p>A composição conclui entregas mais rápido. O custo sobe a cada compra.</p>
-              <button class="action" id="speedUpgrade">Comprar</button>
-            </div>
-            <div class="upgrade">
-              <div class="upgrade-head">
-                <span class="upgrade-ico green">💰</span>
-                <h3>Aumentar valor da carga</h3>
-                <span class="lvl" id="cargoLvl">nível 1</span>
-              </div>
-              <p>Cada entrega no ponto B paga mais. Vale para todos os tipos de carga.</p>
-              <button class="action secondary" id="cargoUpgrade">Comprar</button>
-            </div>
-            <div class="upgrade">
-              <div class="upgrade-head">
-                <span class="upgrade-ico">🚃</span>
-                <h3>Acoplar vagão extra</h3>
-                <span class="lvl" id="wagonLvl">2 vagões</span>
-              </div>
-              <p>Permite acoplar muitos vagões. Cada vagão aumenta o valor de cada entrega.</p>
-              <button class="action" id="wagonUpgrade">Comprar</button>
-            </div>
-            <div class="upgrade">
-              <div class="upgrade-head">
-                <span class="upgrade-ico green">👷</span>
-                <h3>Equipe própria</h3>
-                <span class="lvl" id="crewLvl">sem equipe</span>
-              </div>
-              <p>Equipe interna tem turnos. Fora do turno, o reparo vira terceirizado pago.</p>
-              <button class="action secondary" id="crewUpgrade">Comprar</button>
-            </div>
-            <div class="upgrade">
-              <div class="upgrade-head">
-                <span class="upgrade-ico amber">🛡️</span>
-                <h3>Manutenção preventiva</h3>
-                <span class="lvl" id="preventLvl">nível 0</span>
-              </div>
-              <p>Evolui mais vezes e cria rodadas de proteção contra novas falhas.</p>
-              <button class="action" id="preventUpgrade">Comprar</button>
-            </div>
-            <div class="upgrade">
-              <div class="upgrade-head">
-                <span class="upgrade-ico amber">🏦</span>
-                <h3>Empréstimo emergencial</h3>
-              </div>
-              <p>O limite cresce com o jogo. A dívida é abatida nas próximas entregas.</p>
-              <button class="action danger" id="loanButton">Pegar empréstimo</button>
-            </div>
-          </div>
-          <div class="contract idle" id="contractBox">
-            <span class="ct-ico">📋</span>
-            <div class="ct-body">
-              <strong id="ctTitle">Nenhum contrato ativo</strong>
-              <span id="ctDesc">Aguardando novo contrato expresso...</span>
-            </div>
-            <span class="ct-timer" id="ctTimer" style="display:none">0s</span>
-          </div>
-        </div>
-
-        <div class="rail-area" id="railArea">
+        <span class="cargo-badge" id="cargoBadge">
+          <span id="cargoEmoji">🌾</span>
+          <b id="cargoName">Grãos</b>
+          <span class="mult" id="cargoMult">×1.0</span>
+        </span>
+      </div>
+      <div class="rail-area" id="railArea">
           <svg class="rail-svg" viewBox="0 0 1000 500" preserveAspectRatio="none" aria-hidden="true">
             <path class="ballast" id="railBase" d="M55,250 C100,85 195,80 245,205 S385,320 435,160 S575,25 625,185 S765,345 820,155 S940,85 945,240 C900,395 760,390 700,250 S560,120 500,280 S350,430 295,260 S150,115 105,285 C65,425 265,465 340,340 S530,205 610,355 S800,510 945,320" fill="none" />
             <g id="trackDecor"></g>
@@ -181,45 +90,119 @@
           <div class="train-layer" id="trainLayer" aria-label="Composição: locomotiva puxando vagões em vista superior"></div>
         </div>
 
-        <div class="costs-panel" aria-label="Cards de custos da operação">
-          <div class="cost-card"><span class="cost-ico">🏗️</span><small>Custo de obras</small><strong id="costWorks">R$ 0</strong></div>
-          <div class="cost-card"><span class="cost-ico">⛽</span><small>Custo operacional</small><strong id="costOperational">R$ 0</strong></div>
-          <div class="cost-card"><span class="cost-ico">🔧</span><small>Manutenção + multas</small><strong id="costMaintenance">R$ 0</strong></div>
-          <div class="cost-card"><span class="cost-ico">👷</span><small>Custo da equipe</small><strong id="costCrew">R$ 0</strong></div>
-          <div class="cost-card"><span class="cost-ico">%</span><small>Juros do empréstimo</small><strong id="costLoan">R$ 0</strong></div>
-          <div class="cost-card total"><span class="cost-ico">Σ</span><small>Total de custos</small><strong id="costTotal">R$ 0</strong></div>
-        </div>
-      </article>
-
-      <aside class="side-content">
-        <article class="card">
-          <div class="card-header">
-            <h2>Estatísticas</h2>
-            <span id="repairsInfo">0 equipe(s) em campo</span>
-          </div>
-          <div class="section-body">
-            <div class="stats-grid">
-              <div class="stat-cell"><small>Entregas</small><strong id="stDeliveries">0</strong></div>
-              <div class="stat-cell"><small>Receita total</small><strong id="stEarned">R$ 0</strong></div>
-              <div class="stat-cell"><small>Melhor sequência</small><strong id="stBestCombo">0x</strong></div>
-              <div class="stat-cell"><small>Contratos</small><strong id="stContracts">0</strong></div>
-              <div class="stat-cell"><small>Gasto com obras</small><strong id="stWorks">R$ 0</strong></div>
-              <div class="stat-cell"><small>Tempo operando</small><strong id="stUptime">0:00</strong></div>
-            </div>
-            <div class="footer-actions compact-actions">
-              <button class="action" id="saveButton">Salvar</button>
-              <button class="action danger" id="resetButton">Reiniciar</button>
-            </div>
-          </div>
-        </article>
-      </aside>
     </section>
 
-    <div class="help">
-      <strong>Como jogar:</strong> a composição roda de A até B e gera receita ao chegar. Cada vagão extra aumenta o valor recebido por entrega. Quando a via para por manutenção, a empresa paga multa de <strong>2% do valor da entrega atual por segundo</strong>. Equipes próprias trabalham em turnos; fora do turno, o reparo é terceirizado e pago automaticamente. A manutenção preventiva evolui mais vezes e gera rodadas de proteção contra falhas. Use <strong>Mais investimentos</strong> para abrir upgrades avançados de via, carga, risco, velocidade, vagões e previsibilidade.
-    </div>
-  </main>
+    <section class="operations-dock card" aria-label="Investimentos e contrato">
+      <div class="investment-panel" aria-label="Centro de operações e investimentos">
+        <div class="mini-heading">
+          <strong>Investimentos rápidos</strong>
+          <span>Compre sem sair da tela do trem</span>
+        </div>
 
+        <div class="section-body controls">
+          <div class="upgrade">
+            <div class="upgrade-head">
+              <span class="upgrade-ico">⚡</span>
+              <h3>Aumentar velocidade</h3>
+              <span class="lvl" id="speedLvl">nível 1</span>
+            </div>
+            <p>Conclui entregas mais rápido.</p>
+            <button class="action" id="speedUpgrade">Comprar</button>
+          </div>
+
+          <div class="upgrade">
+            <div class="upgrade-head">
+              <span class="upgrade-ico green">💰</span>
+              <h3>Aumentar valor da carga</h3>
+              <span class="lvl" id="cargoLvl">nível 1</span>
+            </div>
+            <p>Aumenta o valor de cada entrega.</p>
+            <button class="action secondary" id="cargoUpgrade">Comprar</button>
+          </div>
+
+          <div class="upgrade">
+            <div class="upgrade-head">
+              <span class="upgrade-ico">🚃</span>
+              <h3>Acoplar vagão extra</h3>
+              <span class="lvl" id="wagonLvl">2 vagões</span>
+            </div>
+            <p>Mais vagões, mais receita.</p>
+            <button class="action" id="wagonUpgrade">Comprar</button>
+          </div>
+
+          <div class="upgrade">
+            <div class="upgrade-head">
+              <span class="upgrade-ico green">👷</span>
+              <h3>Equipe própria</h3>
+              <span class="lvl" id="crewLvl">sem equipe</span>
+            </div>
+            <p>Repara durante o turno.</p>
+            <button class="action secondary" id="crewUpgrade">Comprar</button>
+          </div>
+
+          <div class="upgrade">
+            <div class="upgrade-head">
+              <span class="upgrade-ico amber">🛡️</span>
+              <h3>Manutenção preventiva</h3>
+              <span class="lvl" id="preventLvl">nível 0</span>
+            </div>
+            <p>Evita falhas futuras.</p>
+            <button class="action" id="preventUpgrade">Comprar</button>
+          </div>
+
+          <div class="upgrade">
+            <div class="upgrade-head">
+              <span class="upgrade-ico amber">🏦</span>
+              <h3>Empréstimo emergencial</h3>
+            </div>
+            <p>Caixa imediato com dívida.</p>
+            <button class="action danger" id="loanButton">Pegar empréstimo</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="contract idle" id="contractBox">
+        <span class="ct-ico">📋</span>
+        <div class="ct-body">
+          <strong id="ctTitle">Nenhum contrato ativo</strong>
+          <span id="ctDesc">Aguardando novo contrato expresso...</span>
+        </div>
+        <span class="ct-timer" id="ctTimer" style="display:none">0s</span>
+      </div>
+    </section>
+
+    <section class="dashboard-bottom" aria-label="Custos e estatísticas">
+      <div class="costs-panel" aria-label="Cards de custos da operação">
+        <div class="cost-card"><span class="cost-ico">🏗️</span><small>Custo de obras</small><strong id="costWorks">R$ 0</strong></div>
+        <div class="cost-card"><span class="cost-ico">⛽</span><small>Custo operacional</small><strong id="costOperational">R$ 0</strong></div>
+        <div class="cost-card"><span class="cost-ico">🔧</span><small>Manutenção + multas</small><strong id="costMaintenance">R$ 0</strong></div>
+        <div class="cost-card"><span class="cost-ico">👷</span><small>Custo da equipe</small><strong id="costCrew">R$ 0</strong></div>
+        <div class="cost-card"><span class="cost-ico">%</span><small>Juros do empréstimo</small><strong id="costLoan">R$ 0</strong></div>
+        <div class="cost-card total"><span class="cost-ico">Σ</span><small>Total de custos</small><strong id="costTotal">R$ 0</strong></div>
+      </div>
+
+      <article class="card stats-card">
+        <div class="card-header">
+          <h2>Estatísticas</h2>
+          <span id="repairsInfo">0 equipe(s) em campo</span>
+        </div>
+        <div class="section-body stats-body">
+          <div class="stats-grid">
+            <div class="stat-cell"><small>Entregas</small><strong id="stDeliveries">0</strong></div>
+            <div class="stat-cell"><small>Receita total</small><strong id="stEarned">R$ 0</strong></div>
+            <div class="stat-cell"><small>Melhor sequência</small><strong id="stBestCombo">0x</strong></div>
+            <div class="stat-cell"><small>Contratos</small><strong id="stContracts">0</strong></div>
+            <div class="stat-cell"><small>Gasto com obras</small><strong id="stWorks">R$ 0</strong></div>
+            <div class="stat-cell"><small>Tempo operando</small><strong id="stUptime">0:00</strong></div>
+          </div>
+          <div class="footer-actions compact-actions">
+            <button class="action" id="saveButton">Salvar</button>
+            <button class="action danger" id="resetButton">Reiniciar</button>
+          </div>
+        </div>
+      </article>
+    </section>
+  </main>
 
   <div class="investment-modal" id="investmentModal" hidden aria-hidden="true">
     <div class="investment-modal__backdrop" data-close-investments></div>
